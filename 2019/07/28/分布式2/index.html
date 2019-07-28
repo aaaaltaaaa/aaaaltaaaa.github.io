@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="分布式系统构架模式1 客户端-服务器模式   Client-Server 2 主-从模式   Mastr-Slave 3 总线模式 4 对等模式     Peer-to - Peer Client-server123456789客户端发出服务请求，服务器端根据客户端的请求参数完成实际的运算，返回运算结果。 客户端运算任务轻，服务器端重客户端生命周期短，服务器端生命周期长，服务器端一般要应对并发问题">
+<meta name="keywords" content="分布式计算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式计算2">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/分布式2/index.html">
+<meta property="og:site_name" content="博学之,审问之,慎思之,明辨之,笃行之">
+<meta property="og:description" content="分布式系统构架模式1 客户端-服务器模式   Client-Server 2 主-从模式   Mastr-Slave 3 总线模式 4 对等模式     Peer-to - Peer Client-server123456789客户端发出服务请求，服务器端根据客户端的请求参数完成实际的运算，返回运算结果。 客户端运算任务轻，服务器端重客户端生命周期短，服务器端生命周期长，服务器端一般要应对并发问题">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-28T09:21:30.648Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式计算2">
+<meta name="twitter:description" content="分布式系统构架模式1 客户端-服务器模式   Client-Server 2 主-从模式   Mastr-Slave 3 总线模式 4 对等模式     Peer-to - Peer Client-server123456789客户端发出服务请求，服务器端根据客户端的请求参数完成实际的运算，返回运算结果。 客户端运算任务轻，服务器端重客户端生命周期短，服务器端生命周期长，服务器端一般要应对并发问题">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/分布式2/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>分布式计算2 | 博学之,审问之,慎思之,明辨之,笃行之</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博学之,审问之,慎思之,明辨之,笃行之</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">aaaaltaaaaの博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/分布式2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aaaaltaaaa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博学之,审问之,慎思之,明辨之,笃行之">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分布式计算2
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-28 17:13:43 / 修改时间：17:21:30" itemprop="dateCreated datePublished" datetime="2019-07-28T17:13:43+08:00">2019-07-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="分布式系统构架模式"><a href="#分布式系统构架模式" class="headerlink" title="分布式系统构架模式"></a>分布式系统构架模式</h4><p>1 客户端-服务器模式   Client-Server</p>
+<p>2 主-从模式   Mastr-Slave</p>
+<p>3 总线模式</p>
+<p>4 对等模式     Peer-to - Peer</p>
+<h5 id="Client-server"><a href="#Client-server" class="headerlink" title="Client-server"></a>Client-server</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">客户端发出服务请求，服务器端根据客户端的请求参数完成实际的运算，返回运算结果。 </span><br><span class="line">客户端运算任务轻，服务器端重</span><br><span class="line">客户端生命周期短，服务器端生命周期长，</span><br><span class="line">服务器端一般要应对并发问题</span><br><span class="line">client一般负责和用户进行交互。</span><br><span class="line">客户端的处理能力弱，仅仅作为显示结果，交互。。</span><br><span class="line">胖客户端--处理能力强，本身可以完成某些计算，实在不行交给server</span><br><span class="line">BS  brower---server   HTTP  HTML</span><br><span class="line">CS  客户端软件是自己弄得</span><br></pre></td></tr></table></figure>
+
+<p>client-cluster</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">是client - server的变种</span><br><span class="line">服务器端多个服务器构成，共同分担计算任务</span><br><span class="line">宏观逻辑上，多个服务器构成的集群可以视为单一的功能更强大的计算节点，客户端感觉不到服务器端的构成。</span><br></pre></td></tr></table></figure>
+
+<p>三层结构Client-cluster模式</p>
+<p>表示层 应用层，数据层</p>
+<p>web服务器叫表示层，负责表示给用户</p>
+<p>应用层 不负责直接存储和管理数据，做核心逻辑运算，</p>
+<p>数据层 专门存储</p>
+<p>任何软件分层</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">缺点：层数太多，影响效率</span><br><span class="line">假定 业务逻辑更改，更改应用层</span><br><span class="line">页面太丑。。改表示层</span><br><span class="line">常识性：三层构架`-`</span><br></pre></td></tr></table></figure>
+
+<p>对于客户端来说，只知道web服务器的IP地址</p>
+<p>对于客户端来说，这种分层是透明的，</p>
+<h3 id="对等分工结构-负载均衡架构"><a href="#对等分工结构-负载均衡架构" class="headerlink" title="对等分工结构/负载均衡架构"></a>对等分工结构/负载均衡架构</h3><p>负载均衡服务器和后台服务器。</p>
+<p>组成以太网， 负载均衡器连一个交换机，双网卡</p>
+<p>每个后台服务器一个网卡，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">客户端来一个请求，给负载均衡器，负载均衡器将请求分配给某一个后台服务器。服务结果返回给负载均衡器。</span><br><span class="line">薄弱点是负载均衡器，负载均衡器是性能瓶颈+ 单点失效点。  后台直接路由器，结果直接返回客户端。（IP地址欺骗，否则客户端会丢弃结果数据包）</span><br><span class="line">瓶颈转到路由器，负载均衡器工作在应用层。</span><br><span class="line">路由器里边不用实现传输层协议。  只有Pc机上需要实现传输层协议。</span><br><span class="line">回来的数据包从路由器过，只过三层，物理 链路，网络</span><br><span class="line">这种方式可以提高效率。</span><br></pre></td></tr></table></figure>
+
+<h3 id="负载均衡器常用均衡策略"><a href="#负载均衡器常用均衡策略" class="headerlink" title="负载均衡器常用均衡策略"></a>负载均衡器常用均衡策略</h3><p>1 随机 2 轮询 3 固定权重+轮询（三台服务器的配置未必一样）<br>nginx web服务器。稍加配置作为一个负载均衡器。</p>
+<p>支持1 2 3 IP哈希</p>
+<p>IP哈希（给予一致性随即散列函数）</p>
+<p>IP地址作为哈希函数的输入，取模。哈希函数也叫一致性随机散列函数</p>
+<p>最少TCP连接数。负载均衡器看建立起来还未关闭的tcp连接数用来判断服务器的负载。</p>
+<p>服务器跑一个小程序，收集服务器的负载，cpu利用率，中断次数，信息返回给负载均衡器，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有些web网站需要先登录，假定客户端3发送一个登陆请求，登陆成功，服务器1记录合法用户。客户端发送成绩查询请求，负载均衡器把这个请求给服务器2，服务器2认为是非法用户</span><br></pre></td></tr></table></figure>
+
+<p>##　ＭＡＳＴＥＲ－ＳＬＡＶＥ模式</p>
+<p>高性能分布式计算，处理系统中进场采用的一种架构模式</p>
+<p>主节点（ＭＡＳＴＥＲ）　负责将总计算任务分解为多个子任务分发给各位从结点完成</p>
+<p>主节点监视各个从结点的任务执行情况，将执行失败的任务调度给其他的从结点完成，</p>
+<p>主节点在分配任务是会参考各个从节点的当前负载情况。</p>
+<p>单点失效点是主节点。master结点会给备份结点，挂了备份节点上。</p>
+<p>ＭＡＰ－ＲＥＤＵＣＥ</p>
+<p>ＳＰＡＲＫ</p>
+<p>ＴＥＮＳＯＲ－ＦＬＯＷ</p>
+<h2 id="总线模式"><a href="#总线模式" class="headerlink" title="总线模式"></a>总线模式</h2><p>发布订阅模式</p>
+<p> ·不同结点之间通过虚拟总线相连</p>
+<p>消息发送者不必知道接受者是谁，接受者也不知道发送者是谁</p>
+<p>发送者和接受者异步方式通信。</p>
+<p>一中松耦合架构</p>
+<p>不同结点完成不同功能。分工协作。</p>
+<p>peer-to-peer模式</p>
+<p>系统中每个计算节点在任务分工上是完全对等的。</p>
+<p>完全相同的软件在不同的计算机上运行，只是初始化的参数不一样</p>
+<p>结构化P2P：不同节点之间的交互模式遵循固定规律。</p>
+<p>​    只和固定的结点打交道。</p>
+<p>非结构化P2P：不同结点之间的交互模式没有固定规律。 </p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/分布式计算/" rel="tag"># 分布式计算</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/28/第一讲 概论/" rel="next" title="计算机网络-概论">
+                <i class="fa fa-chevron-left"></i> 计算机网络-概论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/分布式计算/" rel="prev" title="分布式计算1">
+                分布式计算1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="aaaaltaaaa">
+  
+  <p class="site-author-name" itemprop="name">aaaaltaaaa</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/aaaaltaaaa" title="GitHub &rarr; https://github.com/aaaaltaaaa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式系统构架模式"><span class="nav-number">1.</span> <span class="nav-text">分布式系统构架模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Client-server"><span class="nav-number">1.1.</span> <span class="nav-text">Client-server</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#对等分工结构-负载均衡架构"><span class="nav-number"></span> <span class="nav-text">对等分工结构/负载均衡架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡器常用均衡策略"><span class="nav-number"></span> <span class="nav-text">负载均衡器常用均衡策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总线模式"><span class="nav-number"></span> <span class="nav-text">总线模式</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aaaaltaaaa</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

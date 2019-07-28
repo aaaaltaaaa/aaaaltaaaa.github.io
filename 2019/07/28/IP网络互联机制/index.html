@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="IP网络互联机制​    网络互联的关键是IP，IP核心内容是IP地址和IP分组 ​    节点根据IP分组目的IP地址和路由表确定下一跳的IP地址 ​    由传输网络实现IP分组从当前跳到下一跳的传输过程 ​    IP分组经过不同的传输网络传输时，需封装成传输网络对应帧格式 ​     IP分类编制IP地址分类方法 IPV4 32位  IPV6 128位置 1234567分层编制：网络号+主">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IP网络互联机制">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/IP网络互联机制/index.html">
+<meta property="og:site_name" content="博学之,审问之,慎思之,明辨之,笃行之">
+<meta property="og:description" content="IP网络互联机制​    网络互联的关键是IP，IP核心内容是IP地址和IP分组 ​    节点根据IP分组目的IP地址和路由表确定下一跳的IP地址 ​    由传输网络实现IP分组从当前跳到下一跳的传输过程 ​    IP分组经过不同的传输网络传输时，需封装成传输网络对应帧格式 ​     IP分类编制IP地址分类方法 IPV4 32位  IPV6 128位置 1234567分层编制：网络号+主">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-28T09:21:25.363Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IP网络互联机制">
+<meta name="twitter:description" content="IP网络互联机制​    网络互联的关键是IP，IP核心内容是IP地址和IP分组 ​    节点根据IP分组目的IP地址和路由表确定下一跳的IP地址 ​    由传输网络实现IP分组从当前跳到下一跳的传输过程 ​    IP分组经过不同的传输网络传输时，需封装成传输网络对应帧格式 ​     IP分类编制IP地址分类方法 IPV4 32位  IPV6 128位置 1234567分层编制：网络号+主">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/IP网络互联机制/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>IP网络互联机制 | 博学之,审问之,慎思之,明辨之,笃行之</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博学之,审问之,慎思之,明辨之,笃行之</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">aaaaltaaaaの博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/IP网络互联机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aaaaltaaaa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博学之,审问之,慎思之,明辨之,笃行之">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IP网络互联机制
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-28 17:13:43 / 修改时间：17:21:25" itemprop="dateCreated datePublished" datetime="2019-07-28T17:13:43+08:00">2019-07-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="IP网络互联机制"><a href="#IP网络互联机制" class="headerlink" title="IP网络互联机制"></a>IP网络互联机制</h2><p>​    网络互联的关键是IP，IP核心内容是IP地址和IP分组</p>
+<p>​    节点根据IP分组目的IP地址和路由表确定下一跳的IP地址</p>
+<p>​    由传输网络实现IP分组从当前跳到下一跳的传输过程</p>
+<p>​    IP分组经过不同的传输网络传输时，需封装成传输网络对应帧格式</p>
+<p>​    </p>
+<h2 id="IP分类编制"><a href="#IP分类编制" class="headerlink" title="IP分类编制"></a>IP分类编制</h2><p>IP地址分类方法</p>
+<p>IPV4 32位  IPV6 128位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">分层编制：网络号+主机号</span><br><span class="line">	如何确定网络号和主机号的位数?</span><br><span class="line">A类地址：0+网络号+主机号（1+3）</span><br><span class="line">B类地址  10+网络号+主机号（2+2）</span><br><span class="line">C类地址 110+网络号加主机号（3+1）</span><br><span class="line">D类地址 1110+组播地址</span><br><span class="line">E类地址 11110+保留</span><br></pre></td></tr></table></figure>
+
+<p>$$<br>\left{<br>\begin{aligned}<br>单播地址A,B,C分层，包括网络号和主机号两个部分\<br>主机号全0表示网络地址，比如192.1.1.0是一个C类地址，低8位全0\<br>主教号全1为直接广播地址<br>32位全为1表示受限广播地址，限于发送端所在网络<br>\end{aligned}<br>\right.<br>$$</p>
+<p>A类地址中，0.0.0.0表示IP地址无法确定的那个，终端没有分配IP地址前，可以作为IP分组的源地址。</p>
+<p>127.x.x.x是回送测试地址</p>
+<p><strong>著名组播地址</strong>：</p>
+<p>​    224.0.0.1：表示网络中所有支持组播的终端和路由器</p>
+<p>​    224.0.0.2：表示网络中所有支持组播的路由器</p>
+<p>​    224.0.0.9：表示网络中所有运行RIP进程的路由器</p>
+<p>IP地址分类分层的原因</p>
+<p>​    IP地址为什么分类？网络规模不同</p>
+<p>​    每一个组织的终端是不同的，根据终端数量选择IP地址类型</p>
+<p>​    1.根据终端IP地址确定终端连接的网络</p>
+<ol start="2">
+<li><p>减少路由项的需要？？？</p>
+<p>一：网络地址表示一组终端的IP地址；二：通往这一组终端的下一跳路由器相同</p>
+</li>
+</ol>
+<p><strong>IP地址配置原则</strong></p>
+<p> 1.每个传输网络都有一个网络地址</p>
+<p>2.连接在同一个传输网络上的终端都必须配置具有相同网络号，不同主机的IP地址</p>
+<p>3.路由器的每一个接口都需配置IP地址，该IP地址对应的网络地址必须和分配给该接口连接的传输网络的网络地址相同。</p>
+<p><strong>IP地址不是终端或者路由器的标识符，而是终端或路由器接口的标识符</strong></p>
+<p><strong>接口是指终端或路由器与网络之间的连接点，终端或路由器允许由多个接口</strong></p>
+<p><strong>每一个接口都有独立的标识符–IP地址</strong></p>
+<p><strong>IP地址特点</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">每一个IP地址都由网络号和主机号两部分组成，IP地址是一种分等级的地址结构，分两个等级的好处是：第一：IP地址管理机构在分配IP地址时只分配网络号，而剩下的主机号由得到该网络号的单位来自行分配。第二：路由器仅根据目的主机所连接的网络号来转发分组，这样就可以使得路由表中的项目大幅度减少，从而减少了路由表所占额存储空间以及查找路由表的时间。</span><br><span class="line">IP地址是标志一台主机（或者路由器）和一条链路的接口， 当一台主机同时连接到网络上时，该主机就必须同时具有两个相应的IP地址，其网络号必须是不同的，这种主机交多归属主机。</span><br><span class="line">按照互联网的观点，一个网络是指具有相同网络号的主机的集合，因此用转发器或网桥连接起来的若干个局域网仍然为一个网络，因为这些局域网都具有同样的网络号，具有不同网络号的局域网必须使用路由器进行互连。</span><br><span class="line">在IP地址中，所有分配到网络号的网络，都是平等的，互联网同等对待每一个IP地址。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">IP地址与硬件地址</span><br><span class="line">	物理地址是数据链路层和物理层使用的地址，而IP地址是网络层和以上各层使用的地址，是一种逻辑地址。在发送数据时，数据从高层下到底层，然后才到通信链路上传输，使用IP地址的IP数据包一旦交给了数据链路层，就被封装成了MAC帧，MAC帧在传送时使用的源地址和目的地址都是硬件地址。网络层和网络层以上使用的IP地址，数据链路层以下使用的硬件地址。</span><br><span class="line">	</span><br><span class="line">1.IP层抽象的互联网上只能看到IP数据报。</span><br><span class="line">2.路由器只根据目的站的IP地址的网络号进行路由选择。</span><br><span class="line">3.在局域网的链路层，只能看见MAC帧</span><br><span class="line">4.尽管互联在一起的网络的硬件地址体系各不相同，但是IP层的抽象的互联网却屏蔽了下层这些很复杂的细节，只要我们在网络层上讨论问题，就能够使用同一的，抽象的IP地址研究主机和主机或路由器之间的通信。</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>IP地址分类的缺陷</em></strong></p>
+<p>1.浪费严重</p>
+<p>​    单播IP地址分为A,B,C三类，每一类IP地址有着固定位数的网络号和主机号。</p>
+<p>2.不能更有效的减少路由项：</p>
+<p>​    假设192.1.4.0 和192.1.5.0，都在接着R2   R1 接R2 ，下一跳地址一样，却要重复存储，这一组IP地址的高23位是一样的，但是对于路由器R2来说，这俩个网络可以用同一项路由，但是没有主机号为9位的IP地址类型。</p>
+<p>3.C类地址利用率低</p>
+<p>​    C类IP地址中网络号的位数是21位，使得C类地址网络地址数量最多，大部分网络所连接的终端大于2^8^ -2个，使得真正申请C类地址的单位很少。</p>
+<h2 id="划分子网和构造超网"><a href="#划分子网和构造超网" class="headerlink" title="划分子网和构造超网"></a>划分子网和构造超网</h2><p>1.从两级IP地址到三级IP地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.IP地址空间的利用率很低，</span><br><span class="line">	每一个A类地址网络可连接主机数超过1000W，B超过6W，有的单位申请B，却用不完，不愿意申请C，浪费</span><br><span class="line">2. 给每一个物理网络分配一个网络号会使得路由表变大而使得网络性能变坏。</span><br><span class="line">	互联网中网络越多，路由器的路由表项目也越多，增加了路由器成本，查找时间更多，路由器之间定期交换的路由信息急剧增加，互联网性能下降。</span><br><span class="line">3.两级IP地址不够灵活</span><br><span class="line">	一个单位弄了新的网络，如果没有申请到新的IP地址，是没法投入工作的，希望有新的办法，使得能灵活增加新的网络，不必取申请新的网络号。</span><br></pre></td></tr></table></figure>
+
+<p>为了解决上述问题，在1985年，IP地址中增加了一个 子网号字段，使得两级IP地址变为三级IP地址，能够较好的解决上述问题。这种做法叫做划分子网，或子网寻址或<strong>子网路由选择</strong>。划分子网的基本思路如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">一个拥有许多物理网络的单位，可将所属物理网络划分为若干个子网，划分子网属于一个单位内部的事情。本单位以外的网络看不见这个网络是由多少个子网组成，因为这个单位对外仍然表现为一个网络。</span><br><span class="line"></span><br><span class="line">划分子网的方法是从网络的主机号中借用若干位作为子网号，当然主机号也就相应减少了同样的位数，于是两级IP地址在本单位内部就变成了三级IP地址：网络号，子网号, 主机号</span><br><span class="line"></span><br><span class="line">凡是从其他网络发送给本单位某台主机的IP数据报，仍然是根据IP数据报的目的网络号找到连接在本单位网络上的路由器，当此路由器收到IP数据报后，再按目的网络号和子网号找到目的子网，把IP数据包交付给目的主机。</span><br><span class="line"></span><br><span class="line">*******************************************</span><br><span class="line">接下来的问题是，假定由一个数据报已经到达了路由器R1，那么这个路由器如何把它转发到子网145.13.3.0？</span><br><span class="line"></span><br><span class="line">子网掩码：</span><br><span class="line">从IP报的首部无法看出源主机或者目的主机是否进行了子网划分，这是因为32位IP地址以及数据报的首部没有任何包含子网划分的信息</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">从网络 145.13.0.0外面看，这是一个普通的B类网络，其子网掩码为16个1+16个0。但是进入到这个网络后，就看到了还有许多网络(即划分了子网后的许多网络)，其网络地址为145.13.x.0而这些网络的子网掩码都是24个1+8个0，总之这个B类网络的外卖和里面，看到的网络不一样。</span><br><span class="line"></span><br><span class="line">再不划分子网时，既然没有子网， 为什么还要使用子网掩码？这是为了更好的查找路由表。</span><br><span class="line">现代互联网规定：所有的网络都必须使用子网掩码，同时再路由器的路由表中也必须由子网掩码这一栏，如果一个网络不划分子网，那么该网络的子网掩码就是默认的子网掩码，默认子网掩码中1的位置和IP地址中的网络号相对应。</span><br><span class="line"> 比如A类子网掩码 255.0.0.0</span><br><span class="line"> </span><br><span class="line"> 子网掩码是一个网络或者子网的重要属性，再RFC 950成为互联网的正式标准后，路由器在和相邻路由器交换路由信息时，必须把自己所在网络的子网掩码告诉相邻的路由器，在路由器的路由表中的每一个项目，除了要给出目的网络地址外，还必须同时给出该网络的子网掩码</span><br><span class="line"> 如果一个路由器连接在两个子网上，就由两个网络地址和两个子网掩码。</span><br><span class="line"> </span><br><span class="line"> RFC 950文档，子网号不能全1or全0</span><br><span class="line"> </span><br><span class="line"> 划分子网增加了灵活性，但却减少了能够连接在网络上的子网总数</span><br></pre></td></tr></table></figure>
+
+<p>使用子网时分组的转发</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.从收到的数据报的首部提取目的Ip地址 D</span><br><span class="line">2.先判断是否为直接交付： 对路由器直接相连的网络进行逐个检查：用各网络的子网掩码和D 与操作，看结果是否和相应的网络地址像匹配，如果匹配的话，则把分组直接交付，（需要把D转为物理地址，数据报封装成帧发送出去）。 否则 执行(3)</span><br><span class="line">3.如果路由表中由目的地址为D的特定主机的路由，则把数据报传送给路由表中所指明的吓一跳路由器 否则执行4</span><br><span class="line">4. 对路由器中的每一行（目的网络地址，子网掩码，下一跳地址），用其中的子网掩码和D 与操作， 其结果为N ，如果N与该行目的地址匹配，则把数据报传给下一跳路由器 否则 5</span><br><span class="line">5. 若路由表中由一个默认路由，则传给默认路由，否则 6</span><br><span class="line">6.wrong X-X</span><br></pre></td></tr></table></figure>
+
+<h2 id="IP-无分类编制-构造超网"><a href="#IP-无分类编制-构造超网" class="headerlink" title="IP -无分类编制(构造超网)"></a>IP -无分类编制(构造超网)</h2><p>划分子网在一定程度上解决了互联网在发展中遇到的困难，1992年互联网仍然面临三个必须解决的问题：</p>
+<ol>
+<li><p>B 类地址在1992年以及分配了近一半，很快全部分配完毕</p>
+</li>
+<li><p>互联网主干网络上的路由表中的项目急剧增长，从几千个增长到几万个</p>
+</li>
+<li><p>整个IPV地址空间最终全部耗尽，，2011年，IANA宣布，IPV4地址以及耗尽了。</p>
+<p>当时预计前两个问题将在1994年变得非常严重，因此IETF很快就研究出采用五分类编址的方法来解决前两个问题，IETF认为第三个问题属于更加长远的问题，因此专门成立了IPv6工作组专门解决研发新版本IP协议的问题。</p>
+</li>
+</ol>
+<p>无分类域间路由选择 Classless Inter-Domain Routing， CIDR的读音是“sider” </p>
+<p>==特点==</p>
+<p>CIDR消除了传统的A类，B类，C类地址和划分子网的概念，并且在新的IPv6地址使用之前容许互联网的规模继续增长，CIDR把32位IP分为前后两个部分，前面部分是==网络前缀==，用来指明网络，后面部分用来指明主机，所以CIDR从三级编址又变成了两级编址</p>
+<p>​                {&lt;网络前缀&gt;&lt;主机号&gt;}</p>
+<p>CIDR还用==斜线计法==，即在IP地址后面加上/ 标识网络前缀的位数</p>
+<p>CIDR 把网络前缀都相同的连续的IP地址组成一个 CIDR地址块，我们只要直到CIDR地址块中央的任何一个地址，就可以直到这个地址块的起始地址和最大地址，以及地址数，example as following;</p>
+<p>​            128.14.35.7/20</p>
+<p>​            128.14.32.0</p>
+<p>​            128.14.47.255 </p>
+<p>​            以上这两个特殊地址的主机号是全0和全1，一般不使用，通常只用在这俩个特殊地址之间的地址。</p>
+<p>​            为了更方便地进行路由选择，CIDR使用 32位地址掩码，地址掩码由一串1和一串0组成，而1的个数就是网络前缀的长度，虽然CIDR不使用子网了，但由于目前仍然有一些网络还使用子网划分和子网掩码，因此CIDR使用的地址掩码也可以继续成为子网掩码</p>
+<p>​    ==“CIDR不使用子网”==是指CIDR并没有在32位地址中指明若干位位子网字段，但分配到一个CIDR地址块的单位，仍然可以在本单位内根据需要划分子网，这些子网也都只有一个网络前缀和一台主机号字段，但是子网的网络前缀比整个单位的网络前缀要长一些。</p>
+<p>​        斜线记法还有一个好处就是它除了标识一个IP地址外，还提供了其他的一些重要信息。</p>
+<p>​        由于一个CIDR地址块中有很多地址，所以在路由表中就利用CIDR地址块来查找目的网络，这种地址的聚合常常成为路由聚合，它使得路由表中的一个项目可以表示原来传统分类地址的很多个路由。</p>
+<h2 id="IP分组格式"><a href="#IP分组格式" class="headerlink" title="IP分组格式"></a>IP分组格式</h2><p>——4——————8————————16———19———————31</p>
+<p>版本  | 首部长度            |服务类型                          |            总     长       度                    |</p>
+<p>​                 标                                            识                 |    标  志   |               片偏移           |</p>
+<p>生       存      时   间         |  协                             议   |首            部        校        验        和 |</p>
+<p>​                                                源                        地                        址</p>
+<p>​                                    目                    的                    地                    址</p>
+<p>​                            可                    选            字                        段(长度可变)</p>
+<p><strong>前五行固定部分20字节</strong> 4*8 = 20</p>
+<p>下面分别介绍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">版本：</span><br><span class="line">	占4位， 指IP协议的版本。通信双方是使用的IP协议的版本必须一致，目前广泛使用的IP版本号为4</span><br><span class="line">首部长度：</span><br><span class="line">	4位，可表示最大十进制数是15，首部长度字段所表示数的单位是32位字，因为IP首部固定长度为最大值1111时，就表明首部长度达到15个32位字长，即60个字节。  当 IP分组的首部长度不是4字节的整数倍时，必须利用最后的填充字段加以填充，因此IP数据包的数据部分永远在4字节的整数倍时开始，首部长度限制位60字节的缺点是有时候不够用，这样希望用户尽量减少开销，最常用的首部长度是20字节，这时不使用任何选项。</span><br><span class="line">区分服务：</span><br><span class="line">	占8位，用来获得更好的服务，这个字段在旧标准中叫做服务类型。实际上一直没有被使用过，1998那年IETF把这个字段改为了 Differentiated Services 区分服务。只有在使用区分服务时候，才使用这个字段。</span><br><span class="line">总长度：</span><br><span class="line">	指的是首部和数据之和的长度，单位为字节。2^16-1 为最大字节。</span><br><span class="line">实际上这样长的数据报很少遇到。如果IP数据报超过了数据链数层最大长度，必须分片处理 比如以太网最大帧长度1500字节</span><br><span class="line">标识：</span><br><span class="line">	占16位，IP软件在存储器中维持着一个计数器，每产生一个数据报，计数器就加1，并将此值赋给标识字段，但这个标识并不是序号，因为IP是无连接服务，数据报并不存在按序接受的问题，当数据报由于长度超过mtu而必须分片时，这个标识字段就被复制到所有的数据报片的标识字段中，相同的标识字段的值使分片后各数据报片最后能正确地重装为原来的数据报。</span><br><span class="line">标志：</span><br><span class="line">	占3位。目前只有前两位有意义，标志字段中的最低位记为MF，MF等于1标识后面还有分片数据，==0标识这是最后一个。</span><br><span class="line">	中间位DF，表示不能分片，  ==0  允许分片</span><br><span class="line">片偏移：</span><br><span class="line">	占13位，片偏移指出，较长的分组在分片后，某片在原分组中的相对位置，也就是说，相对于用户数据字段的起点，该片从何处开始，片偏移以8个字节为偏移单位，这就是说，每个分片的长度一定是8字节的整数倍。</span><br><span class="line"></span><br><span class="line">生存时间：</span><br><span class="line">	占8位，生存时间字段常用的英文缩写TTL  time to live， 表明这是数据报在网络中的寿命，设计之初采用的是s为单位，现在 改为了跳数限制，防止无法交付的数据报无限制在网络中兜圈子，浪费网络资源，TTL的意义是指明数据报在互联网中至多可以经过多少个路由器，显然，数据报能在互联网中经过的路由器的最大值255，如果把TLL初始值置为1，说明该数据报只在本局域网中传送。</span><br><span class="line"></span><br><span class="line">协议：</span><br><span class="line">	占8位，协议字段指出此数据报携带的数据是使用何种协议，以便使目的主机的IP层知道应将数据部分上交给哪个协议处理。</span><br><span class="line">首部校验和：</span><br><span class="line">	占16位，这个字段只检测数据报的首部，但不包括数据部分，这是因为数据报每经过一个路由器，路由器都要重新计算一次首部校验和，不检测数据部分减少了计算的工作量。</span><br><span class="line">	IP首部的检验和不采用复杂的CRC检测码，而采用下面的简单计算方法：在发送方，先把IP数据报首部划分为许多16位字的序列，并把检验和字段置0，用反码算术运算把所有16位字相加，将得到的和的反码写入检验和字段，接收方收到数据后，</span><br></pre></td></tr></table></figure>
+
+<p># </p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/28/ICMP协议/" rel="next" title="ICMP协议">
+                <i class="fa fa-chevron-left"></i> ICMP协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/安卓开发1/" rel="prev" title="安卓开发1">
+                安卓开发1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="aaaaltaaaa">
+  
+  <p class="site-author-name" itemprop="name">aaaaltaaaa</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/aaaaltaaaa" title="GitHub &rarr; https://github.com/aaaaltaaaa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IP网络互联机制"><span class="nav-number">1.</span> <span class="nav-text">IP网络互联机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP分类编制"><span class="nav-number">2.</span> <span class="nav-text">IP分类编制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#划分子网和构造超网"><span class="nav-number">3.</span> <span class="nav-text">划分子网和构造超网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP-无分类编制-构造超网"><span class="nav-number">4.</span> <span class="nav-text">IP -无分类编制(构造超网)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP分组格式"><span class="nav-number">5.</span> <span class="nav-text">IP分组格式</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aaaaltaaaa</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

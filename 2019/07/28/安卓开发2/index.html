@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="活动​    一种可以包含用户界面的组件，主要用于和用户进行交互，一个应用程序中可以包含零个或多个活动。但不包含任何活动的应用程序很少见。 活动的基本用法   com.example.activitytest  -&amp;gt;new -&amp;gt;activity-&amp;gt;empty Activity.    without      generate layout file and launcher a">
+<meta name="keywords" content="安卓开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓开发2">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/安卓开发2/index.html">
+<meta property="og:site_name" content="博学之,审问之,慎思之,明辨之,笃行之">
+<meta property="og:description" content="活动​    一种可以包含用户界面的组件，主要用于和用户进行交互，一个应用程序中可以包含零个或多个活动。但不包含任何活动的应用程序很少见。 活动的基本用法   com.example.activitytest  -&amp;gt;new -&amp;gt;activity-&amp;gt;empty Activity.    without      generate layout file and launcher a">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-28T09:21:44.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安卓开发2">
+<meta name="twitter:description" content="活动​    一种可以包含用户界面的组件，主要用于和用户进行交互，一个应用程序中可以包含零个或多个活动。但不包含任何活动的应用程序很少见。 活动的基本用法   com.example.activitytest  -&amp;gt;new -&amp;gt;activity-&amp;gt;empty Activity.    without      generate layout file and launcher a">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/安卓开发2/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>安卓开发2 | 博学之,审问之,慎思之,明辨之,笃行之</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博学之,审问之,慎思之,明辨之,笃行之</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">aaaaltaaaaの博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/安卓开发2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aaaaltaaaa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博学之,审问之,慎思之,明辨之,笃行之">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">安卓开发2
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-28 17:13:43 / 修改时间：17:21:44" itemprop="dateCreated datePublished" datetime="2019-07-28T17:13:43+08:00">2019-07-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="活动"><a href="#活动" class="headerlink" title="活动"></a>活动</h2><p>​    一种可以包含用户界面的组件，主要用于和用户进行交互，一个应用程序中可以包含零个或多个活动。但不包含任何活动的应用程序很少见。</p>
+<h2 id="活动的基本用法"><a href="#活动的基本用法" class="headerlink" title="活动的基本用法"></a>活动的基本用法</h2><p>   com.example.activitytest  -&gt;new -&gt;activity-&gt;empty Activity.   </p>
+<p>without      generate layout file and launcher activity.</p>
+<p>setContentView() 方法给当前活动加载一个布局，一般是传入布局id，项目中添加任何资源文件都会在R文件中生成一个相应的资源ID，因此我们刚才创建的first_layout.xml布局的id现在已经是添加到R文件中，R.layout.first_layout就可以得到该布局的id。</p>
+<p>在AndroidManifest文件中注册</p>
+<p> 实际上我们创建activity时，Android studio已经帮我们自动注册了。注册后，程序仍然不能运行，因为没有指定主活动，程序运行时不指导启动哪个活动，配置主活动的方法，在activity标签内部加上 intent-filter标签并且加上声明 </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>除此之外，我们还可以使用android：label来指定活动中标题栏中的内容，标题栏是显示在活动最顶部的。</p>
+<p>给主活动指定label不仅会成为标题栏的内容，还会称为启动器launcher中应用程序的名称。</p>
+<h3 id="在活动中使用Toast"><a href="#在活动中使用Toast" class="headerlink" title="在活动中使用Toast"></a>在活动中使用Toast</h3><pre><code>Toast 是Android系统提供的一种非常好的提醒方式，在程序中可以使用它将一些短小的信息通知给用户，这些信息会在一段时间后小时，并且不会暂用任何屏幕空间。</code></pre><p>​    首先需要定义一个弹出Toast的出发点，利用界面上的按钮，点击按钮弹出一个Toast。</p>
+<p>​    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```java</span><br><span class="line">Button button1 = (Button) findViewById(R.id.button_1);</span><br><span class="line">button1.setOnClickListener(new View.OnClickListener()&#123;</span><br><span class="line">    public void onClick(View v)&#123;</span><br><span class="line">        Toast.makeText(FirstActivity.this,&quot;不是按钮，点了也没有用·-·&quot;, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">	在activity中，通过 findViewById()方法来获取当前布局文件中定义的元素，这里我们传入R.id.button_1,来得到按钮的实例，这个只是刚才在first_layout.xml中通过android:id属性指定的。</span><br><span class="line">	findViewById()方法返回的是一个view对象，我们需要向下转型，将他转成Button对象，得到按钮的实例后，我们通过调用setOnClickListener()方法为按钮注册一个监听器，点击按钮时就会执行监听器中的onClick()方法。</span><br><span class="line">	Toast的用法非常简单，通过静态方法makeText()创建出一个Toast对象，然后调用 show()将Toast显示出来就可以了，这里需要注意的时，</span><br><span class="line">		makeText()方法需要传入3个参数，第一个参数是Context，也就是Toast要求的上下文，由于活动本身就是一个context对象，因此这里直接传入FirstActiity.this即可。第二个参数是Toast显示的文本内容，第三个参数是Toast显示的时常，有两个内置常量可以选择，Toast.LENGTH_SHORT 和Toast.LENGTH_LONG</span><br><span class="line">		</span><br><span class="line">```</span><br><span class="line"></span><br><span class="line">## 在活动中使用Menu</span><br><span class="line"></span><br><span class="line">​	res-&gt;new -&gt;directory</span><br><span class="line"></span><br><span class="line">​	menu  OK    main   NEW-Menu resource file</span><br><span class="line"></span><br><span class="line">~~~xml</span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;</span><br><span class="line">&lt;item android:id=&quot;@+id/add_item&quot;</span><br><span class="line">    android:title=&quot;Add&quot;/&gt;</span><br><span class="line">    &lt;item</span><br><span class="line">        android:id=&quot;@+id/remove_item&quot;</span><br><span class="line">        android:title=&quot;Remove&quot;/&gt;</span><br><span class="line">&lt;/menu&gt;</span><br><span class="line">创建了两个菜单项，其中&lt;/item&gt;标签来创建具体的某一项，指定标识符和名称。</span><br><span class="line"></span><br><span class="line">回到FirstActivity来重写onCreateOptionMenu()方法</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</span><br><span class="line">        getMenuInflater().inflate(R.menu.main,menu);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">getMenuInflater 得到MenuInflater对象，再调用它的inflate方法就可以给当前活动创建菜单。</span><br><span class="line">inflate()方法接受两个参数，第一个用于指定我们通过哪个资源文件来创建菜单，传入R.menu.main</span><br><span class="line">第二个参数用于指定我们的菜单项将添加到哪一个menu对象中，这里直接使用onCreateOptionsMenu()方法中传入的menu参数，然后给这个方法返回<span class="keyword">true</span>，表示允许创建的菜单显示出来，如果返回了<span class="keyword">false</span>，创建的菜单将无法显示。</span><br><span class="line"></span><br><span class="line">接下来重新菜单响应事件。重写onOptionsItemSelected()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span>(item.getItemId())&#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.add_item:</span><br><span class="line">                Toast.makeText(<span class="keyword">this</span>,<span class="string">"You clicked Add"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> R.id.remove_item:</span><br><span class="line">                Toast.makeText(<span class="keyword">this</span>,<span class="string">"you clicked remove"</span>,Toast.LENGTH_SHORT).show();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">通过调用item.getItemId() 来判断我们点击的是哪一个菜单项，然后给每个菜单项加入自己的处理。</span><br></pre></td></tr></table></figure>
+
+<h3 id="销毁一个活动"><a href="#销毁一个活动" class="headerlink" title="销毁一个活动"></a>销毁一个活动</h3><p>finish();</p>
+<h2 id="2-3使用intent在活动之间穿梭"><a href="#2-3使用intent在活动之间穿梭" class="headerlink" title="2.3使用intent在活动之间穿梭"></a>2.3使用intent在活动之间穿梭</h2><p>​    Intent大致可以分为两种：显示intent和隐式intent；</p>
+<p>​    Intent有多个构造函数的重载，其中一个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Intent(Context packageContext, Class&lt;?&gt;cls)</span><br><span class="line">    Context， 提供一个启动活动的上下文，</span><br><span class="line">    Class，指定想要启动的目标活动。</span><br><span class="line">    Activity类中提供了一个startActivity()方法，这个方法专门用于启动活动，其接受一个intent参数，将构建好的intent传入startActivity()方法就可以启动目标活动了。</span><br><span class="line">    修改firstActivity中按钮的点击事件，代码如下：</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(FirstActivity.<span class="keyword">this</span>,SecondActivity.class);</span><br><span class="line">                startActivity(intent);</span><br><span class="line">首先构造了一个Intent，传入FirstActivity.<span class="keyword">this</span>作为上下文，传入Second-Activity.class作为目标活动。</span><br><span class="line">这种称之为显示intent</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-2隐式Intent"><a href="#2-3-2隐式Intent" class="headerlink" title="2.3.2隐式Intent"></a>2.3.2隐式Intent</h2><p>​    相比于显示Intent，隐式Intent则含蓄了很多，它并不明确指出我们想要启动哪一个活动，而是指定一系列更为抽象的action和category等信息，然后交由系统去分析这个intent,并帮我们找出合适的活动去启动，即可以相应这个隐式Intent的活动。</p>
+<p>​    在activity标签下配置intent-filter的内容</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.example.activitytest.ACTION_START"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span> = <span class="string">"android.intent.category.DEFAULT"</span>/&gt;</span>&gt;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">修改FirstActivity中按钮点击事件</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(<span class="string">"com.example.activitytest.ACTION_START"</span>);</span><br><span class="line">                startActivity(intent);</span><br></pre></td></tr></table></figure>
+
+<p>​    每个Intent只能指定一个action，但却能指定多个category，目前我们只有一个默认的category</p>
+<h2 id="2-3-3-MORE"><a href="#2-3-3-MORE" class="headerlink" title="2.3.3 MORE"></a>2.3.3 MORE</h2><p>​    使用隐式Intent，我们不仅可以启动自己程序内的活动，还可以启动其他程序的活动，这使得android多个应用程序之间的功能共享成为了可能。</p>
+<p>​    修改按钮点击如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_VIEW);</span><br><span class="line">               intent.setData(Uri.parse(<span class="string">"http://www.baidu.com"</span>));</span><br><span class="line">               startActivity(intent);xxxxxxxxxx com.example.activitytest.MY_CATEGORY</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-4向下一个活动传递数据"><a href="#2-3-4向下一个活动传递数据" class="headerlink" title="2.3.4向下一个活动传递数据"></a>2.3.4向下一个活动传递数据</h2><p>​    Intent可以在启动活动的时候传递数据。</p>
+<p>​    Intent中提供了一系列putExtra()方法的重载，可以将数据暂存intent中，启动后，下一个程序从中取出来，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">button3.setOnClickListener(<span class="keyword">new</span> View.OnClickListener()&#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">              String data = <span class="string">"Hello thirdActivity"</span>;</span><br><span class="line">              Intent intent = <span class="keyword">new</span> Intent(SecondActivity.<span class="keyword">this</span>,ThirdActivity.class);</span><br><span class="line">              intent.putExtra(<span class="string">"extra_data"</span>,data);</span><br><span class="line">              startActivity(intent);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Intent intent = getIntent();</span><br><span class="line">      String data = intent.getStringExtra(<span class="string">"extra_data"</span>);</span><br><span class="line">      Log.d(<span class="string">"ThirdActivity"</span>,data);</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-5-返回数据给上一个活动"><a href="#2-3-5-返回数据给上一个活动" class="headerlink" title="2.3.5 返回数据给上一个活动"></a>2.3.5 返回数据给上一个活动</h2><p>​    通常返回数据只需要按下Back键，并没有一个用于启动活动Intent来传递数据，</p>
+<p>​    activity中还有一个startActivityForResult()方法用于启动活动，但这个方法期望再活动销毁时能够返回一个结果给上一个活动。</p>
+<p>​    startActivityForResult接受两个参数，第一个参数 Intent ，第二个请求码，用于再之后回调中判断数据的来源。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Intent intent1 = <span class="keyword">new</span> Intent();</span><br><span class="line">                intent1.putExtra(<span class="string">"data_return"</span>,<span class="string">"i will calling"</span>);</span><br><span class="line">                setResult(RESULT_OK,intent1);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (requestCode)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">if</span>(resultCode ==RESULT_OK)&#123;</span><br><span class="line">                    String returnedData = data.getStringExtra(<span class="string">"data_return"</span>);</span><br><span class="line">                    Toast.makeText(<span class="keyword">this</span>,returnedData,Toast.LENGTH_SHORT).show();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    如果用户选择Back键返回 重写onBackPressed()方法来解决</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4活动的生命周期"><a href="#2-4活动的生命周期" class="headerlink" title="2.4活动的生命周期"></a>2.4活动的生命周期</h2><p>​    返回栈</p>
+<p>​    Android是使用任务(task)来管理活动的，一个任务就是一组存放再栈里的活动的集合，这个栈也被称作返回栈，栈是一种后进先出的数据结构，再默认情况下，我们启动一个新的活动，它会在返回栈中入栈，并处于栈顶的位置，每当我们按下back 或者调用finish()方法去销毁一个活动时，处于栈顶的活动会出栈，这时前一个入栈的活动就会重新处于栈顶的位置。系统 总是会显示处于栈顶的活动给用户。</p>
+<p>​    活动状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>activity类中定义了7个回调方法，覆盖了活动生命周期的每一个环节，下面来介绍这7个方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">onCreate() 这个方法中完成活动的初始化操作，比如加载布局，绑定事件</span><br><span class="line"></span><br><span class="line">onStart()  活动由不可见变为可见时调用</span><br><span class="line"></span><br><span class="line">onResume  活动准备好和用户进行交互时调用，此时的活动一定位于返回栈的栈顶，并且处于运行状态。</span><br><span class="line"></span><br><span class="line">onPause()  这个方法在系统准备去启动或者恢复另一个活动的时候调用，我们通常在这个方法中将一些资源释放，保留关键数据，但这个方法的执行要快。</span><br><span class="line"></span><br><span class="line">onStop()  这个方法活动完全不可见的时候调用，它和onPause()方法的主要区别在于，如果启动的新活动是一个对话框式的活动，那么onPause()方法会得到执行，而onStop()方法并不会执行</span><br><span class="line"></span><br><span class="line">onDestroy() 这个方法在活动被销毁之前调用，之后活动的状态将变为销毁状态。</span><br><span class="line"></span><br><span class="line">onRestart() 这个方法在活动由停止状态变为运行状态之前调用，也就是活动被重新启动了。</span><br><span class="line"></span><br><span class="line">以上7个方法除了onRestart()方法，其他都是两两相对的，从而又可以将活动分为3种生存期。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">完整生存期:活动在onCreate()方法和onDestory()方法之间所经历的，就是完整生存期。一般情况下，一个活动会在onCreate()方法中完成释放内存的操作。</span><br><span class="line"></span><br><span class="line">可见生存期：活动在onStart()方法和onStop()方法之间所经历的，就是可见生存期。在可见生存期内，活动对于用户总是可见的，即便有可能无法和用户进行交互，我们可以通过这俩个办法，合理的管理那些对用户可见的资源，比如在onStart中对资源进行加载，在onstop中对资源进行释放，从而保证停止状态的活动不会占用过多内存。</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/安卓开发/" rel="tag"># 安卓开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/28/安卓开发1/" rel="next" title="安卓开发1">
+                <i class="fa fa-chevron-left"></i> 安卓开发1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/操作符重载/" rel="prev" title="操作符重载">
+                操作符重载 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="aaaaltaaaa">
+  
+  <p class="site-author-name" itemprop="name">aaaaltaaaa</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/aaaaltaaaa" title="GitHub &rarr; https://github.com/aaaaltaaaa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#活动"><span class="nav-number">1.</span> <span class="nav-text">活动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#活动的基本用法"><span class="nav-number">2.</span> <span class="nav-text">活动的基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在活动中使用Toast"><span class="nav-number">2.1.</span> <span class="nav-text">在活动中使用Toast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#销毁一个活动"><span class="nav-number">2.2.</span> <span class="nav-text">销毁一个活动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3使用intent在活动之间穿梭"><span class="nav-number">3.</span> <span class="nav-text">2.3使用intent在活动之间穿梭</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-2隐式Intent"><span class="nav-number">4.</span> <span class="nav-text">2.3.2隐式Intent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-3-MORE"><span class="nav-number">5.</span> <span class="nav-text">2.3.3 MORE</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-4向下一个活动传递数据"><span class="nav-number">6.</span> <span class="nav-text">2.3.4向下一个活动传递数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-5-返回数据给上一个活动"><span class="nav-number">7.</span> <span class="nav-text">2.3.5 返回数据给上一个活动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4活动的生命周期"><span class="nav-number">8.</span> <span class="nav-text">2.4活动的生命周期</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aaaaltaaaa</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

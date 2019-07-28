@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="1.1网络内涵网络特征 12345678910共享资源：	互联计算机的目的是为了实现资源共享，这些资源包括软件、硬件和数据。自治系统：	自治系统是能够独立运行并提供服务的系统，连接到计算机网络中的每个设备都应该是自治系统。	遵守同一的通信标准：	·互联这些自治系统的目的是为了实现资源共享	·实现资源共享就必须相互交换数据	·相互交换数据就必须遵守同一的通信标准。  计算机网络： 以实现资源共享为目">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络-概论">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/第一讲 概论/index.html">
+<meta property="og:site_name" content="博学之,审问之,慎思之,明辨之,笃行之">
+<meta property="og:description" content="1.1网络内涵网络特征 12345678910共享资源：	互联计算机的目的是为了实现资源共享，这些资源包括软件、硬件和数据。自治系统：	自治系统是能够独立运行并提供服务的系统，连接到计算机网络中的每个设备都应该是自治系统。	遵守同一的通信标准：	·互联这些自治系统的目的是为了实现资源共享	·实现资源共享就必须相互交换数据	·相互交换数据就必须遵守同一的通信标准。  计算机网络： 以实现资源共享为目">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-28T09:21:53.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="计算机网络-概论">
+<meta name="twitter:description" content="1.1网络内涵网络特征 12345678910共享资源：	互联计算机的目的是为了实现资源共享，这些资源包括软件、硬件和数据。自治系统：	自治系统是能够独立运行并提供服务的系统，连接到计算机网络中的每个设备都应该是自治系统。	遵守同一的通信标准：	·互联这些自治系统的目的是为了实现资源共享	·实现资源共享就必须相互交换数据	·相互交换数据就必须遵守同一的通信标准。  计算机网络： 以实现资源共享为目">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/第一讲 概论/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>计算机网络-概论 | 博学之,审问之,慎思之,明辨之,笃行之</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博学之,审问之,慎思之,明辨之,笃行之</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">aaaaltaaaaの博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/第一讲 概论/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aaaaltaaaa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博学之,审问之,慎思之,明辨之,笃行之">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">计算机网络-概论
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-28 17:13:43 / 修改时间：17:21:53" itemprop="dateCreated datePublished" datetime="2019-07-28T17:13:43+08:00">2019-07-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-1网络内涵"><a href="#1-1网络内涵" class="headerlink" title="1.1网络内涵"></a>1.1网络内涵</h1><h2 id="网络特征"><a href="#网络特征" class="headerlink" title="网络特征"></a>网络特征</h2> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">共享资源：</span><br><span class="line">	互联计算机的目的是为了实现资源共享，这些资源包括软件、硬件和数据。</span><br><span class="line"></span><br><span class="line">自治系统：</span><br><span class="line">	自治系统是能够独立运行并提供服务的系统，连接到计算机网络中的每个设备都应该是自治系统。</span><br><span class="line">	</span><br><span class="line">遵守同一的通信标准：</span><br><span class="line">	·互联这些自治系统的目的是为了实现资源共享</span><br><span class="line">	·实现资源共享就必须相互交换数据</span><br><span class="line">	·相互交换数据就必须遵守同一的通信标准。</span><br></pre></td></tr></table></figure>
+
+<h3 id="计算机网络：-以实现资源共享为目的，一些互相连接的、独立自治的计算机的集合。"><a href="#计算机网络：-以实现资源共享为目的，一些互相连接的、独立自治的计算机的集合。" class="headerlink" title="计算机网络： 以实现资源共享为目的，一些互相连接的、独立自治的计算机的集合。"></a>计算机网络： 以实现资源共享为目的，一些互相连接的、独立自治的计算机的集合。</h3><h2 id="网络定义"><a href="#网络定义" class="headerlink" title="网络定义"></a>网络定义</h2><h1 id="1-2互联网发展过程"><a href="#1-2互联网发展过程" class="headerlink" title="1.2互联网发展过程"></a>1.2互联网发展过程</h1><h2 id="从ARPA网络到internet"><a href="#从ARPA网络到internet" class="headerlink" title="从ARPA网络到internet"></a>从ARPA网络到internet</h2><p>~1969年，互联网雏形ARPANET诞生</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​    2o世纪80年代中后期，计算机网络是行业内认识或企业内参与信息管理系统开发的人士所关心的东西。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从技术层面讲：个人电脑，交换机和路由器，Web技术的诞生和发展为Internet的兴起和发展提供了技术保障</span><br><span class="line">从市场层面讲：丰富的网络信息资源，尤其是网络的交互性，极大的提高了人们上网的积极性，网络彻底改变了人们的生活，工作方式。</span><br></pre></td></tr></table></figure>
+
+<h2 id="从低速互联网到高速互联网"><a href="#从低速互联网到高速互联网" class="headerlink" title="从低速互联网到高速互联网"></a>从低速互联网到高速互联网</h2><p>~描述网络速度？</p>
+<p>​    带宽：数据传输速率</p>
+<p>​    传输速率：指网络中每秒发送或者接受的二进制位数，单位为比特每秒，缩写为b/s or bps 有时也称为比特率。</p>
+<p>​    <strong>不同级别网络的速率要求不同</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="从数据网络到同一网络"><a href="#从数据网络到同一网络" class="headerlink" title="从数据网络到同一网络"></a>从数据网络到同一网络</h2><h2 id="从Internet到移动Internet"><a href="#从Internet到移动Internet" class="headerlink" title="从Internet到移动Internet"></a>从Internet到移动Internet</h2><h2 id="从Internet到物联网"><a href="#从Internet到物联网" class="headerlink" title="从Internet到物联网"></a>从Internet到物联网</h2><h2 id="从Internet到安全internet"><a href="#从Internet到安全internet" class="headerlink" title="从Internet到安全internet"></a>从Internet到安全internet</h2><h1 id="1-3交换方式"><a href="#1-3交换方式" class="headerlink" title="1.3交换方式"></a>1.3交换方式</h1><h1 id="1-4计算机网络体系结构和协议"><a href="#1-4计算机网络体系结构和协议" class="headerlink" title="1.4计算机网络体系结构和协议"></a>1.4计算机网络体系结构和协议</h1><h1 id="1-5网络分类"><a href="#1-5网络分类" class="headerlink" title="1.5网络分类"></a>1.5网络分类</h1>
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/13/first/" rel="next" title="博客诞生记">
+                <i class="fa fa-chevron-left"></i> 博客诞生记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/分布式2/" rel="prev" title="分布式计算2">
+                分布式计算2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="aaaaltaaaa">
+  
+  <p class="site-author-name" itemprop="name">aaaaltaaaa</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/aaaaltaaaa" title="GitHub &rarr; https://github.com/aaaaltaaaa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-1网络内涵"><span class="nav-number">1.</span> <span class="nav-text">1.1网络内涵</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络特征"><span class="nav-number">1.1.</span> <span class="nav-text">网络特征</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机网络：-以实现资源共享为目的，一些互相连接的、独立自治的计算机的集合。"><span class="nav-number">1.1.1.</span> <span class="nav-text">计算机网络： 以实现资源共享为目的，一些互相连接的、独立自治的计算机的集合。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络定义"><span class="nav-number">1.2.</span> <span class="nav-text">网络定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-2互联网发展过程"><span class="nav-number">2.</span> <span class="nav-text">1.2互联网发展过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#从ARPA网络到internet"><span class="nav-number">2.1.</span> <span class="nav-text">从ARPA网络到internet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从低速互联网到高速互联网"><span class="nav-number">2.2.</span> <span class="nav-text">从低速互联网到高速互联网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从数据网络到同一网络"><span class="nav-number">2.3.</span> <span class="nav-text">从数据网络到同一网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从Internet到移动Internet"><span class="nav-number">2.4.</span> <span class="nav-text">从Internet到移动Internet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从Internet到物联网"><span class="nav-number">2.5.</span> <span class="nav-text">从Internet到物联网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从Internet到安全internet"><span class="nav-number">2.6.</span> <span class="nav-text">从Internet到安全internet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-3交换方式"><span class="nav-number">3.</span> <span class="nav-text">1.3交换方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-4计算机网络体系结构和协议"><span class="nav-number">4.</span> <span class="nav-text">1.4计算机网络体系结构和协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-5网络分类"><span class="nav-number">5.</span> <span class="nav-text">1.5网络分类</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aaaaltaaaa</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

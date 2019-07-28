@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="1.3.4分析第一个Android程序​    .gradle和.idea： 防止android studio自动生成的文件。无需关心 ​    .app  项目种的代码，资源等内容，几乎都是放置在这个目录下，后面的开发工作也基本是在这个目录下进行的。 ​    .build 这个目录包含了编译时自动生成的文件，不用关心。 ​    gradle 这个目录包含了gradle wrapper的配置文">
+<meta name="keywords" content="安卓开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓开发1">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/安卓开发1/index.html">
+<meta property="og:site_name" content="博学之,审问之,慎思之,明辨之,笃行之">
+<meta property="og:description" content="1.3.4分析第一个Android程序​    .gradle和.idea： 防止android studio自动生成的文件。无需关心 ​    .app  项目种的代码，资源等内容，几乎都是放置在这个目录下，后面的开发工作也基本是在这个目录下进行的。 ​    .build 这个目录包含了编译时自动生成的文件，不用关心。 ​    gradle 这个目录包含了gradle wrapper的配置文">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-28T09:21:40.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安卓开发1">
+<meta name="twitter:description" content="1.3.4分析第一个Android程序​    .gradle和.idea： 防止android studio自动生成的文件。无需关心 ​    .app  项目种的代码，资源等内容，几乎都是放置在这个目录下，后面的开发工作也基本是在这个目录下进行的。 ​    .build 这个目录包含了编译时自动生成的文件，不用关心。 ​    gradle 这个目录包含了gradle wrapper的配置文">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/安卓开发1/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>安卓开发1 | 博学之,审问之,慎思之,明辨之,笃行之</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博学之,审问之,慎思之,明辨之,笃行之</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">aaaaltaaaaの博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/安卓开发1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aaaaltaaaa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博学之,审问之,慎思之,明辨之,笃行之">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">安卓开发1
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-28 17:13:43 / 修改时间：17:21:40" itemprop="dateCreated datePublished" datetime="2019-07-28T17:13:43+08:00">2019-07-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-3-4分析第一个Android程序"><a href="#1-3-4分析第一个Android程序" class="headerlink" title="1.3.4分析第一个Android程序"></a>1.3.4分析第一个Android程序</h2><p>​    .gradle和.idea： 防止android studio自动生成的文件。无需关心</p>
+<p>​    .app  项目种的代码，资源等内容，几乎都是放置在这个目录下，后面的开发工作也基本是在这个目录下进行的。</p>
+<p>​    .build 这个目录包含了编译时自动生成的文件，不用关心。</p>
+<p>​    gradle 这个目录包含了gradle wrapper的配置文件，使用gradle wrapper的方式不需要将gradle提前下载好，自动下载。</p>
+<p>​    .gitignore  用来将指定的目录或者文件排除在版本控制之外。</p>
+<p>​    build.gradle 全局的gradle构建脚本， 通常不需要修改</p>
+<p>​    gradle.properties 全局的gradle配置文件，配置的属性影响到项目中所有的gradle编译脚本</p>
+<p>​    gradlew 和gradlew.bat 命令行界面中执行gradle命令，前者mac 后者windows</p>
+<p>​    hello world.iml   iml文件是所有intellij idea项目都会自动生成的一个文件，用于标识这是一个idea项目</p>
+<p>​    local.peoperties   用于指定本机中的android sdk的路径，通常自动生成，除非更该 需要手动设置。</p>
+<p>​    settings.gradle 用于指定项目中所有引入的模块，由于hello world项目中只有一个app模块，因此该文件中也就只引入了app这一模块，通常情况下，模块的引入都是自动完成的。</p>
+<hr>
+<p>app目录</p>
+<p>​    build 自动生成，</p>
+<p>​    libs  如果使用了第三方的jar包，那么需要把这些jar包放在libs目录下，jar包会自动添加到构建路径</p>
+<p>​    Androidtest 用来便携Android test测试用例，可以对项目进行一些自动化测试。</p>
+<p>​    java  该目录放置所有java代码</p>
+<p>​    res   项目中使用到的所有图片，布局，字符串等等资源都要放在这个目录下，drawable 图片，layout 布局</p>
+<p>​    AndroidMainfest.xml   这是整个android项目的配置文件，在程序中定义的所有四大组件都需要在这个文件里注册，另外还可以在这个文件中给应用程序添加权限声明。</p>
+<p>​    test   编写unit test测试用例，是对项目进行自动化测试的另一种方式</p>
+<p>​    .gitignore 类似外层</p>
+<p>​    app.iml  </p>
+<p>​    build.gradle app模块的gradle构建脚本，这个文件中会指定很多项目构建相关的配置</p>
+<p>​    progurad-rules.pro  指定项目代码的混淆规则</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity android:name=<span class="string">".HelloWorldActivity"</span>&gt;</span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span><br><span class="line"></span><br><span class="line">                &lt;category android:name=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line">        &lt;/activity&gt;</span><br><span class="line">        </span><br><span class="line">                   </span><br><span class="line">这段代码表示对HelloWorldActivity这个活动进行注册，没有在AndroidManifest.xml里注册的活动是不能使用的。</span><br><span class="line">	其中intent-filter中的两行代码，表示helloworldactivity是这个项目的主活动，当在手机桑点击应用图标，首先启动的就是这个活动。</span><br><span class="line">	活动是android应用程序的门面，凡是在应用中你看得到的东西。都是放在活动中的，因此你在app中看到的界面，其实就是这个活动。</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorldActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.hello_world_layout);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hellowWorldActivity是继承自appcompatactivity的，这是一种向下兼容的activity，可以将activity在各个系统版本中增加的特性和功能兼容到Android2.1系统。</span><br><span class="line">	我们项目中所有的活动都必须继承它或者它的子类。比如此处appcompatactivity。</span><br><span class="line">	oncreate方法，这个方法是活动被创建必须要执行的方法。</span><br><span class="line">	我们在布局文件中写入界面，在活动中引入layout布局。</span><br><span class="line">	</span><br><span class="line">	打开res/layout目录下的 hello_world_layout.xml文件，切换到text视图</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-6-详解build-gradle文件"><a href="#1-3-6-详解build-gradle文件" class="headerlink" title="1.3.6 详解build.gradle文件"></a>1.3.6 详解build.gradle文件</h2><p>外层+ 内层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Top-level build file where you can add configuration options common to all sub-projects/modules.</span></span><br><span class="line"></span><br><span class="line">buildscript &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">        classpath <span class="string">'com.android.tools.build:gradle:2.2.0'</span></span><br><span class="line">    <span class="comment">//Gradle并不是专门为了构建Android项目而开发的。 java，c++等项目都可以使用Gradle来构建，因此</span></span><br><span class="line">        <span class="comment">//如果需要用gradle，则需要声明插件，后面是版本号。</span></span><br><span class="line">        <span class="comment">// <span class="doctag">NOTE:</span> Do not place your application dependencies here; they belong</span></span><br><span class="line">        <span class="comment">// in the individual module build.gradle files</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        jcenter()<span class="comment">//jcenter是代码托管仓库，声明这个配置，我们可以轻松引用任何jcenter</span></span><br><span class="line">                <span class="comment">//上的开源项目。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">task <span class="title">clean</span><span class="params">(type: Delete)</span> </span>&#123;</span><br><span class="line">    delete rootProject.buildDir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">apply plugin: <span class="string">'com.android.application'</span>  <span class="comment">//声明，应用程序模块</span></span><br><span class="line">                                        <span class="comment">//除此之外还有库模块。</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">24</span>   <span class="comment">//指定项目的编译版本 24 android7.0</span></span><br><span class="line">    buildToolsVersion <span class="string">"28.0.3"</span><span class="comment">//构建工具的版本</span></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"com.example.a76639.helloworld"</span> <span class="comment">//指定项目的包名</span></span><br><span class="line">        minSdkVersion <span class="number">15</span><span class="comment">// 指定项目最低兼容的android系统版本 15为4.0</span></span><br><span class="line">        targetSdkVersion <span class="number">24</span><span class="comment">//表示你已经在该目标版本上做了充分的测试，系统启用新的功能和特性</span></span><br><span class="line">        versionCode <span class="number">1</span>  <span class="comment">//版本号</span></span><br><span class="line">        versionName <span class="string">"1.0"</span><span class="comment">//版本名</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span>  <span class="comment">//是否进行混淆</span></span><br><span class="line">            <span class="function">proguardFiles <span class="title">getDefaultProguardFile</span><span class="params">(<span class="string">'proguard-android.txt'</span>)</span>, 'proguard-rules.pro'</span></span><br><span class="line"><span class="function">        &#125;</span></span><br><span class="line"><span class="function">    &#125;</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">dependencies </span>&#123;<span class="comment">//指定当前项目的所有依赖关系</span></span><br><span class="line">    <span class="function">compile <span class="title">fileTree</span><span class="params">(dir: <span class="string">'libs'</span>, include: [<span class="string">'*.jar'</span>])</span></span></span><br><span class="line"><span class="function">    <span class="title">androidTestCompile</span><span class="params">(<span class="string">'com.android.support.test.espresso:espresso-core:2.2.2'</span>, &#123;</span></span></span><br><span class="line"><span class="function"><span class="params">        exclude group: <span class="string">'com.android.support'</span>, <span class="keyword">module</span>: <span class="string">'support-annotations'</span></span></span></span><br><span class="line"><span class="function"><span class="params">    &#125;)</span></span></span><br><span class="line"><span class="function">    compile 'com.android.support:appcompat-v7:24.2.1'</span></span><br><span class="line"><span class="function">    testCompile 'junit:junit:4.12'</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"><span class="comment">//本地依赖，远程依赖，库依赖</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="关于日志工具"><a href="#关于日志工具" class="headerlink" title="关于日志工具"></a>关于日志工具</h2><p>log.v   verbose琐碎</p>
+<p>log.d   debug  调试</p>
+<p>log.i  info   帮助分析用户行为数据，  </p>
+<p>log.w  warn  警告信息。</p>
+<p>log.e  erro   </p>
+<p>onCreate方法外  logt +tab 生成tag</p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/安卓开发/" rel="tag"># 安卓开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/28/IP网络互联机制/" rel="next" title="IP网络互联机制">
+                <i class="fa fa-chevron-left"></i> IP网络互联机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/安卓开发2/" rel="prev" title="安卓开发2">
+                安卓开发2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="aaaaltaaaa">
+  
+  <p class="site-author-name" itemprop="name">aaaaltaaaa</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/aaaaltaaaa" title="GitHub &rarr; https://github.com/aaaaltaaaa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-4分析第一个Android程序"><span class="nav-number">1.</span> <span class="nav-text">1.3.4分析第一个Android程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-6-详解build-gradle文件"><span class="nav-number">2.</span> <span class="nav-text">1.3.6 详解build.gradle文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于日志工具"><span class="nav-number">3.</span> <span class="nav-text">关于日志工具</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aaaaltaaaa</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="2.1熵及熵编码原理##　2.2.1信息量的概念 信息量：表示该符号所需要的位数    ｀考虑用０和１组成的二进制数码    ｀为含有ｎ个符号的某条消息编码    ｀假设符号$a_j$在整条消息中重复出现的概率为$P_j$,则该符号的信息量定义为 ​                                  $E_n = - log_2(P_j)$  ​    ｀信息量表示为以２为底的对数">
+<meta name="keywords" content="智能数据管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="熵编码">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/熵及熵编码/index.html">
+<meta property="og:site_name" content="博学之,审问之,慎思之,明辨之,笃行之">
+<meta property="og:description" content="2.1熵及熵编码原理##　2.2.1信息量的概念 信息量：表示该符号所需要的位数    ｀考虑用０和１组成的二进制数码    ｀为含有ｎ个符号的某条消息编码    ｀假设符号$a_j$在整条消息中重复出现的概率为$P_j$,则该符号的信息量定义为 ​                                  $E_n = - log_2(P_j)$  ​    ｀信息量表示为以２为底的对数">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-28T09:21:49.853Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="熵编码">
+<meta name="twitter:description" content="2.1熵及熵编码原理##　2.2.1信息量的概念 信息量：表示该符号所需要的位数    ｀考虑用０和１组成的二进制数码    ｀为含有ｎ个符号的某条消息编码    ｀假设符号$a_j$在整条消息中重复出现的概率为$P_j$,则该符号的信息量定义为 ​                                  $E_n = - log_2(P_j)$  ​    ｀信息量表示为以２为底的对数">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/熵及熵编码/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>熵编码 | 博学之,审问之,慎思之,明辨之,笃行之</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博学之,审问之,慎思之,明辨之,笃行之</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">aaaaltaaaaの博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/熵及熵编码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aaaaltaaaa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博学之,审问之,慎思之,明辨之,笃行之">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">熵编码
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-28 17:13:43 / 修改时间：17:21:49" itemprop="dateCreated datePublished" datetime="2019-07-28T17:13:43+08:00">2019-07-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="2-1熵及熵编码原理"><a href="#2-1熵及熵编码原理" class="headerlink" title="2.1熵及熵编码原理"></a>2.1熵及熵编码原理</h1><p>##　2.2.1信息量的概念</p>
+<p>信息量：表示该符号所需要的位数<br>    ｀考虑用０和１组成的二进制数码<br>    ｀为含有ｎ个符号的某条消息编码<br>    ｀假设符号$a_j$在整条消息中重复出现的概率为$P_j$,则该符号的信息量定义为</p>
+<p>​                                  $E_n = - log_2(P_j)$ </p>
+<p>​    ｀信息量表示为以２为底的对数，是正值</p>
+<p>举例说明:<br>输入信源字符串: aabbaccbaa<br>a、b、c 出现的概率分别为 0.5、0.3和 0.2,他们的信息量分别为:<br>Ea = -log 2 (0.5) = 1<br>Eb = -log 2 (0.3) = 1.737<br>Ec = -log 2 (0.2) = 2.322<br><strong>总信息量也即表达整个字符串需要的位数</strong>:<br>E = Ea * 5 + Eb * 3 + Ec * 2 = 14.855 位</p>
+<p>输入信源字符串：aabbaccbaa</p>
+<p>解：　字符串有３个不同的字符，又因为２位二进制数能表示４个不同的字符，</p>
+<p>所以对每个字符用２位二进制数表示，例如</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>ａ</th>
+<th>ｂ</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>等长编码</td>
+<td>００</td>
+<td>０１</td>
+<td>１０</td>
+</tr>
+</tbody></table>
+<p>那么，这１０个字符就需要２０位二进制数表示。</p>
+<h2 id="2-2-2熵编码的概念"><a href="#2-2-2熵编码的概念" class="headerlink" title="2.2.2熵编码的概念"></a>2.2.2熵编码的概念</h2><p>｀数据压缩的基石——Shannon于１９４８年创立的信息论</p>
+<p>｀Shannon第一定律(率失真定律)　确定了在编码过程中不损失任何信息，即在无损编码条件下数据压缩的理论极限是信息的熵，并指出了如何建立最优数据压缩编码方法。</p>
+<p>｀这类保存信息熵的编码方法统称为<strong>熵编码</strong>(Entropy coding)</p>
+<p>｀信源符号集合　$A({a_1,a_2,a_3,….,a_j})$  其中每个元素$a_j$为信源符号。</p>
+<p>｀设信源产生符号$a_j$ 这个时间的概率是$P_j$ ,则对每个信源输出的平均信息为</p>
+<p>​                         $H(x) = - \sum_{j=1}^{m}P_j*log_2p_j$</p>
+<p>​                          $\sum_{j=1}^mP_j=1$</p>
+<p>信息源的平均信息量称为Ｅｎｔｒｏｐｙ　“熵”</p>
+<h2 id="2-2-3平均码长概念"><a href="#2-2-3平均码长概念" class="headerlink" title="2.2.3平均码长概念"></a>2.2.3平均码长概念</h2><p>`如果对字符$a_j$的编码长度$L_j$，则信号Ｌ的平均码长为：</p>
+<p>　　　　　　　　$L_{avg} = \sum_{j=1}^mp_j*L_j​$</p>
+<h2 id="2-2-4无失真编码概念"><a href="#2-2-4无失真编码概念" class="headerlink" title="2.2.4无失真编码概念"></a>2.2.4无失真编码概念</h2><p>　　　　　　　　｀平均码长$L_{avg}&gt;&gt;H(X)$有冗余，不是最佳</p>
+<p>　　　　　　　　｀平均码长$L_{avg}&lt;H(X)$　不可能</p>
+<p>　　　　　　　　｀平均码长$L_{avg}≈H(X)$　　最佳编码</p>
+<p>​                    熵值是平均码长的下限。</p>
+<p>最常用－－－－Ｈｕｆｆｍａｎ编码</p>
+<h2 id="2-2-5编码效率的定义"><a href="#2-2-5编码效率的定义" class="headerlink" title="2.2.5编码效率的定义"></a>2.2.5编码效率的定义</h2><p>｀熵Ｈ(ｘ)除以平均码长$L_{avg}$ 即表示编码效率</p>
+<p>｀$H(x) = -\sum_{j=1}^mP_j*log_2p_j$</p>
+<p>$\eta=\frac{H(x)}{L_{avg}}$   $\eta &lt;= 1 $</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据压缩的理论极限是信息熵</span><br><span class="line">	只要信源不是等概率分布，那么就存在着数据压缩的可能性</span><br><span class="line">数据压缩的基本途径之一：　使各个字符的　　编码长度尽量等于字符的信息量</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-2Huffman编码"><a href="#2-2Huffman编码" class="headerlink" title="2.2Huffman编码"></a>2.2Huffman编码</h1><h2 id="2-2-1Huffman算法简介"><a href="#2-2-1Huffman算法简介" class="headerlink" title="2.2.1Huffman算法简介"></a>2.2.1Huffman算法简介</h2><p>｀哈弗曼编码是１９５２年为压缩文本文件所设计的编码方法，也是目前消除视频信息冗余最常使用的方法之一</p>
+<p>｀对出现<strong>概率最大</strong>的符号附以<strong>最短的码字</strong>，概率越小表示的码字越长，从而使表示每个符号的平均比特数最小。</p>
+<h2 id="2-2-2Huffman编码步骤"><a href="#2-2-2Huffman编码步骤" class="headerlink" title="2.2.2Huffman编码步骤"></a>2.2.2Huffman编码步骤</h2><p>1.把信源符号按概率大小顺序排列　－(概率排列)</p>
+<p>2.在分配码字长度时，首先将两个出现概率最小的两个符号的概率相加，合成一个概率－合并</p>
+<p>3.把合成概率看作是一个新组合符号的概率，重复上述做法，直到最后只剩下两个符号的概率为止；　－(置换)</p>
+<p>4.完成上述步骤后，再返回向前进行编码，每层有两个分枝，分别赋予０和１。大的赋0或小的 赋0均可，但必须 一致。</p>
+<h2 id="2-2-3Huffman编码特点"><a href="#2-2-3Huffman编码特点" class="headerlink" title="2.2.3Huffman编码特点"></a>2.2.3Huffman编码特点</h2><p>｀霍夫曼编码是瞬时唯一的可解块编码；</p>
+<p>​    ｀<strong>瞬时</strong>：符号串中每个码字无需参考后继符号就可以解码</p>
+<p>​    ｀<strong>唯一可解码</strong>：任何符号串只能以一种方式解码</p>
+<p>　　｀<strong>块编码</strong>：每个信源符号都映射到一个编码符号的固定序列中；</p>
+<p>｀霍夫曼编码是唯一可译码，短的码不会成为更长码的起始部分；</p>
+<p>｀霍夫曼编码的平均码长接近于熵</p>
+<p>｀与计算机的数据结构不匹配</p>
+<p>｀需要多次排序，耗费时间</p>
+<p>｀霍夫曼编码的局限性在于：<strong>该编码方法只适用于离散信号源，即信源符号个数为有限数</strong></p>
+<p>`编码时，需要知道输入符号集的概率分布</p>
+<p>`在进行Huffman编码压缩时，计算量大且复杂，尤其是译码复杂度高</p>
+<p>`由于码长不等，存在一个输入输出速率匹配问题。</p>
+<h2 id="2-2-4Huffman编码举例"><a href="#2-2-4Huffman编码举例" class="headerlink" title="2.2.4Huffman编码举例"></a>2.2.4Huffman编码举例</h2><p>​    <strong>例1</strong>：设有一幅图8x8图像，其灰度级分布见下图所示，对其进行HUffman编码，给出编码过程和码字，并计算平均码字长，信息熵，编码效率和压缩比。</p>
+<p>$$<br>f(m,n)=\left[<br>\begin{matrix}<br>3&amp;3&amp;3&amp;3&amp;3&amp;3&amp;3&amp;1\<br>3&amp;3&amp;3&amp;3&amp;3&amp;3&amp;3&amp;1\<br>3&amp;4&amp;4&amp;4&amp;4&amp;4&amp;3&amp;1\<br>3 &amp;4&amp; 2&amp; 5&amp; 2&amp; 4&amp; 3&amp; 1\<br>3 &amp;4&amp; 5&amp; 5&amp; 5&amp; 4&amp; 3 &amp;1\<br>3 &amp;4 &amp;4 &amp;4 &amp;4 &amp;4 &amp;3 &amp;1\<br>3 &amp;3&amp; 3&amp; 3&amp; 3&amp;3 &amp;3 &amp;1<br>\end{matrix}<br>\right]<br>$$<br>解：计算每个灰度级出现的概率</p>
+<p>P(1)=8/64， P(2)=2/64， P(3)=31/64， P(4)=16/64， P(5)=7/64， </p>
+<table>
+<thead>
+<tr>
+<th>初始信源符号</th>
+<th>概率</th>
+<th>信源编码过程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3</td>
+<td>31/64 =1</td>
+<td>31/64 =1       31/64 =1       33/64 =0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>16/64 = 01</td>
+<td>16/64  =01      17/64 = 00       31/64 =1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>8/64 =001</td>
+<td>9/64  =000        16/64 =01</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7/64 =0000</td>
+<td>8/64  =001</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2/64 =0001</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>`获得的码字见下表：</p>
+<table>
+<thead>
+<tr>
+<th>灰度级(i)</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>概率P(i)</td>
+<td>8/64</td>
+<td>2/64</td>
+<td>31/64</td>
+<td>16/64</td>
+<td>7/64</td>
+</tr>
+<tr>
+<td>码字(M)</td>
+<td>001</td>
+<td>0001</td>
+<td>1</td>
+<td>01</td>
+<td>0000</td>
+</tr>
+<tr>
+<td>码字长度(L(i))</td>
+<td>3</td>
+<td>4</td>
+<td>1</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<p>`平均码字长度如下</p>
+<p>$L_{avg} = \sum_{i=1}^5P(i)L(i) = (8/64)<em>3+(2/64)</em>4+(31/64)<em>1+(16/64)</em>2\+(7/64)*4=1.921875$</p>
+<p>`信息熵</p>
+<p>​    $H(f) = -\sum_{i=1}^5P(i)log_2P(i)$=1.887</p>
+<p>`<strong>编码效率</strong></p>
+<p>$\eta=\frac{H}{L_avg} = \frac{1.887}{1.921875} = 0.9819$</p>
+<p>`<strong>压缩比</strong></p>
+<p>$C_R = \frac{m}{L_{avg}} = \frac{3}{1.921875} = 1.56$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">霍夫曼编码的局限性</span><br><span class="line">	`可变编码，译码复杂</span><br><span class="line">	`需要事先知道输入符号集的概率分布</span><br><span class="line">	`没有错误保护功能</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-3算术编码"><a href="#2-3算术编码" class="headerlink" title="2.3算术编码"></a>2.3算术编码</h1><h2 id="2-3-1算术编码原理"><a href="#2-3-1算术编码原理" class="headerlink" title="2.3.1算术编码原理"></a>2.3.1算术编码原理</h2><p>`算术编码是1980年代发展起来的熵编码方法</p>
+<p>`基本原理是将被编码的数据序列表示成0和1之间的一个间隔（一个小数范围），该间隔的位置与输入数据概率分布有关，信息越长，编码表示的间隔就越小，因而表示这一间隔所需的二进制位数就越多(由于间隔是用小数表示的)。</p>
+<h2 id="2-3-1算术编码步骤"><a href="#2-3-1算术编码步骤" class="headerlink" title="2.3.1算术编码步骤"></a>2.3.1算术编码步骤</h2><p>`算术编码是从整个符号序列出发，采用递推式的连续编码的方法。</p>
+<p>`解码时，根据该区间判断信源各个符号出现的顺序和类型</p>
+<p><strong>举例</strong></p>
+<p>设信源符号表{$a_1,a_2,a_3,a_4$},其符号出现的概率分别为{$0.2,0.1,0.4,0.3$},请按照序列{$a_2,a_1,a_4,a_3$}进行算术编码。</p>
+<p><strong>解</strong>：</p>
+<p><strong>(1)首先定义算法空间[0 1 ].</strong></p>
+<p><strong>(2)确定各个字符的区间分配，建立码点。</strong></p>
+<p><strong>码点满足如下两条规则</strong></p>
+<p>(a)每一个码点值是它前面所出现的概率之和；</p>
+<p>​    每一个码点值是0，因为它之前没有码字；第一个符号a1出现的概率为0.2，故第二个码点的值是0.2，依次类推。</p>
+<p>(b)将每一个码点值作为右端点，每个分过程所得区间的宽度对应于该符号的概率。</p>
+<p><strong>(3)对输入的每个信源符号，重复下述步骤</strong></p>
+<p>`将第一个信源符号a2出现的概率空间[0.2 0.3)扩展为新的算法子空间，将当前分割为长度正比与信源集内各符号概率的区间；</p>
+<p>接下来确定第二个符号a1的子区间，即序列a2a1的子区间</p>
+<p>将a2a1的概率空间扩展为新的算法子空间；</p>
+<p>确定信源符号序列a2a1a4的新算法子空间  ……go on</p>
+<table>
+<thead>
+<tr>
+<th>编码过程</th>
+<th>输出数值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初始</td>
+<td>[0,1)</td>
+</tr>
+<tr>
+<td>编码a2</td>
+<td>[0.2,0.3)</td>
+</tr>
+<tr>
+<td>编码a2a1</td>
+<td>[0.2,0.22)</td>
+</tr>
+<tr>
+<td>编码a2a1a4</td>
+<td>[0.214,0.22)</td>
+</tr>
+<tr>
+<td>编码a2a1a4a3</td>
+<td>[0.2158,0.2182)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>那么任何一个该区间内的实数，如，0.2160就可以用来表示序列{a2a1a4a3}        </p>
+<h2 id="2-3-1算术解码步骤"><a href="#2-3-1算术解码步骤" class="headerlink" title="2.3.1算术解码步骤"></a>2.3.1算术解码步骤</h2><p>`解码过程是对照当前的编码进行识别的过程</p>
+<p>`当得到一个图像的编码后，根据其各个信源符号的概率进行分析，找到当前编码所符合的概率空间，逐步求精，即可以得到原始符号序列信息。</p>
+<p>`解码过程如下;</p>
+<p>​    1.通过比较各个信源符号与已知编码序列区间的数值范围，找到序列中第一个信源符号。</p>
+<p>​    由于0.2158在[0.2,0.3)之间，所以，第一个符号是a2</p>
+<p>​    2.从编码数值中减去第一个符号a2的影响，即首先减去a2左端0.2 再除以宽度0.1</p>
+<p>​                == 0.158</p>
+<p>​    3.0.158在a1区间，故第二个是0.158</p>
+<table>
+<thead>
+<tr>
+<th>被解码数值</th>
+<th>解码信号源</th>
+<th>输出数值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0.2158</td>
+<td>a2</td>
+<td>[0.2,0.3)</td>
+</tr>
+<tr>
+<td>0.158</td>
+<td>a1</td>
+<td>[0,0.2)</td>
+</tr>
+<tr>
+<td>0.79</td>
+<td>a4</td>
+<td>[0.7,1)</td>
+</tr>
+<tr>
+<td>0.3</td>
+<td>a3</td>
+<td>[0.3,0.7)</td>
+</tr>
+<tr>
+<td>0</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>一个符号序列的末尾，应有一个结束符作为标志，它随信源符号一起被编码 </p>
+<h2 id="2-3-2-算术编码分析"><a href="#2-3-2-算术编码分析" class="headerlink" title="2.3.2 算术编码分析"></a>2.3.2 算术编码分析</h2><p>`算术编码是一种从整个符号系列出发，采用递推形式连续编码的方法，在算术编码中，字母表中的符号和码字之间不再存在一一对应关系，一个算术编码字要赋给整个信源符号序列，(即不是一次编一个号)，而码字本身确定0和1之间的一个实数区间。</p>
+<p>·不论是否是二元信源，也不论数据的概率分布如何，其平均码长均能逼近信源的熵。</p>
+<p>`算术编码和霍夫曼编码的区别就在于：在算术编码中，输入序列的长度，是可以变化的，可以说，算术编码是将可变长码字赋给可变长符号块。</p>
+<p>`正是由于算术编码不需要为定长符号快分配整数长的码字，理论上能达到无损编码定理所规定的最低限度。</p>
+<p>`算术编码从全序列出发，采用递推形式的连续编码， 它不是将单个的信源符号映射成一个码字，而是将整 个符号序列映射为实数轴上[0,1）区间内的一个小区 间，其长度等于该序列的概率。 </p>
+<p>`如果等整个符号序列输入完毕后再将最终得到的左端点 输出，将遇到两个问题：第一，当符号序列很长时，将 不能实时编解码；第二，有效位太长的数难以表示。 </p>
+<p>`为了解决这个问题，通常采用两个有限精度的移位寄存 器存放码字的最新部分，随着序列中符号的不断输入， 不断地将其中的高位移出到信道上，以实现实时编解码。 </p>
+<h2 id="2-3-2算术编码效率"><a href="#2-3-2算术编码效率" class="headerlink" title="2.3.2算术编码效率"></a>2.3.2算术编码效率</h2><p>`算术编码的最大优点之一在于它具有自适应性和高编码效率。 算术编码的模式选择直接影响编码效率。其模式有固定模式和自适 应模式两种。 固定模式是基于概率分布模型的，而在自适应模式中，其各符号的 初始概率都相同，但随着符号顺序的出现而改变，在无法进行信源 概率模型统计的条件下，非常适于使用自适应模式的算术编码。 </p>
+<p>`在信道符号概率比较均匀的情况下，算术编码的编码效率 高于Huffman编码。但在实现上，比Huffman编码的计算过 程复杂。 </p>
+<p>`算术码也是变长码，编码过程中的移位和输出都不均匀， 需要有缓冲存储器。 </p>
+<p>`在误差扩散方面，也比分组码更严重。在分组码中，由于误 码而破坏分组，过一段时间后常能自动恢复；但在算术码中， 却往往会一直延续下去，因为它是从全序列出发来编码的。 因而算术码流的传输也要求高质量的信道，或采用检错反馈 重发的方式。 </p>
+<h2 id="2-3-3算术编码举例"><a href="#2-3-3算术编码举例" class="headerlink" title="2.3.3算术编码举例"></a>2.3.3算术编码举例</h2><p>把区间［0.42688, 0.432］用二进制形式表示为 ［0.0110110101001,  0.011011101000011］。 （8）在这个区间中找出其编码最短的二进制作为算术编码。 可以看出，0.0110111是此区间最短的编码， 且算术编码中任一数 据序列的编码都含有“0.”，在编码时，可以不考虑“0.”，故把 0110111其作为数据序列“baacc”的算术编码。  </p>
+<p>找最短编码，找出最短前缀，然后加上一个一即可。</p>
+<h1 id="2-4游程编码"><a href="#2-4游程编码" class="headerlink" title="2.4游程编码"></a>2.4游程编码</h1><h2 id="游程编码概念"><a href="#游程编码概念" class="headerlink" title="游程编码概念"></a>游程编码概念</h2><p>​    将具有相同值的连续串用其串长和一个代表值来代替，该连续串就称为游程，串长称为游程长度</p>
+<p>​    <strong>编码思想：去除像素冗余</strong></p>
+<p>​    用游程的<strong>灰度</strong>和游程的<strong>长度</strong>代替游程本身。</p>
+<p>​    </p>
+<h2 id="二元信源的游程编码"><a href="#二元信源的游程编码" class="headerlink" title="二元信源的游程编码"></a>二元信源的游程编码</h2><p>​    000 100 111111 00000001</p>
+<p>游程序列 3 1 2 6 7</p>
+<p>等长游程编码： 011 001 010 110 111</p>
+<h2 id="多元信源的游程编码"><a href="#多元信源的游程编码" class="headerlink" title="多元信源的游程编码"></a>多元信源的游程编码</h2><p>`对多元序列aabbbcddddd用游程编码</p>
+<p>解:</p>
+<p>​    游程长度编码为2a3b1c5d</p>
+<p>` 例3：BBBBBBBBBBXXXXXXXXJJJJJAAAAAAUUUUUU • 经过游程编码后，变为： B#10X#8J#5A#6U#6 但是增加的标志位可能抵消压缩编码带来的好处，所以多元序列 进行游程编码的意义不大。 </p>
+<h2 id="游程编码优缺点分析"><a href="#游程编码优缺点分析" class="headerlink" title="游程编码优缺点分析"></a>游程编码优缺点分析</h2><p>`游程编码仍然是变长编码，有其固定的缺点，需要大量缓冲和优质的信道。</p>
+<p>`编码长度可以从1一直到无限，这在码字的选择和码表的建立方面都有困难，适用于二元序列，对于多元信源，一般不能直接利用游程编码。</p>
+<h2 id="图像游程编码"><a href="#图像游程编码" class="headerlink" title="图像游程编码"></a>图像游程编码</h2><p>`对于某些灰度级成片连续出现的图像，游程编码也是一种高校的编码方法。特别是对二值图像，效果尤为显著</p>
+<p>`游程编码所能获得的压缩比主要取决于图像本身的特点</p>
+<p>`若图像中具有相同颜色的图像块越大，图像块数目越小，则压缩比就越高，。</p>
+<p>`为了达到比较好的压缩效果，一般不单独使用游程编码，而是和其他编码方法结合使用。如在JPEG中就综合使用哈夫曼和游程编码。</p>
+<p>​    </p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/智能数据管理/" rel="tag"># 智能数据管理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/28/三层交换机/" rel="next" title="三层交换机">
+                <i class="fa fa-chevron-left"></i> 三层交换机
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/ICMP协议/" rel="prev" title="ICMP协议">
+                ICMP协议 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="aaaaltaaaa">
+  
+  <p class="site-author-name" itemprop="name">aaaaltaaaa</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/aaaaltaaaa" title="GitHub &rarr; https://github.com/aaaaltaaaa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#2-1熵及熵编码原理"><span class="nav-number">1.</span> <span class="nav-text">2.1熵及熵编码原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-2熵编码的概念"><span class="nav-number">1.1.</span> <span class="nav-text">2.2.2熵编码的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-3平均码长概念"><span class="nav-number">1.2.</span> <span class="nav-text">2.2.3平均码长概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-4无失真编码概念"><span class="nav-number">1.3.</span> <span class="nav-text">2.2.4无失真编码概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-5编码效率的定义"><span class="nav-number">1.4.</span> <span class="nav-text">2.2.5编码效率的定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-2Huffman编码"><span class="nav-number">2.</span> <span class="nav-text">2.2Huffman编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-1Huffman算法简介"><span class="nav-number">2.1.</span> <span class="nav-text">2.2.1Huffman算法简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-2Huffman编码步骤"><span class="nav-number">2.2.</span> <span class="nav-text">2.2.2Huffman编码步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-3Huffman编码特点"><span class="nav-number">2.3.</span> <span class="nav-text">2.2.3Huffman编码特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-4Huffman编码举例"><span class="nav-number">2.4.</span> <span class="nav-text">2.2.4Huffman编码举例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3算术编码"><span class="nav-number">3.</span> <span class="nav-text">2.3算术编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-1算术编码原理"><span class="nav-number">3.1.</span> <span class="nav-text">2.3.1算术编码原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-1算术编码步骤"><span class="nav-number">3.2.</span> <span class="nav-text">2.3.1算术编码步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-1算术解码步骤"><span class="nav-number">3.3.</span> <span class="nav-text">2.3.1算术解码步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-2-算术编码分析"><span class="nav-number">3.4.</span> <span class="nav-text">2.3.2 算术编码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-2算术编码效率"><span class="nav-number">3.5.</span> <span class="nav-text">2.3.2算术编码效率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-3算术编码举例"><span class="nav-number">3.6.</span> <span class="nav-text">2.3.3算术编码举例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-4游程编码"><span class="nav-number">4.</span> <span class="nav-text">2.4游程编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#游程编码概念"><span class="nav-number">4.1.</span> <span class="nav-text">游程编码概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二元信源的游程编码"><span class="nav-number">4.2.</span> <span class="nav-text">二元信源的游程编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多元信源的游程编码"><span class="nav-number">4.3.</span> <span class="nav-text">多元信源的游程编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#游程编码优缺点分析"><span class="nav-number">4.4.</span> <span class="nav-text">游程编码优缺点分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像游程编码"><span class="nav-number">4.5.</span> <span class="nav-text">图像游程编码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aaaaltaaaa</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

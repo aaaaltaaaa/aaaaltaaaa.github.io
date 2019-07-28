@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="3.1 内容简介​    互联网是由不同类型的传输网络互联而成的网际网。 ​    以太网就是其中一种传输网络。 12  以太网的发展过程1.传输媒体从采用同轴电缆到双绞线缆和光纤​    同轴电缆柔软性不够，不容易布线。 ​    双绞线和光纤是两种互补性很强的传输媒体 ​    这两种传输媒体的使用催生了一个新兴行业：综合布线     2.从共享式以太网发展到交换式以太网​    最初以太网是">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太网">
+<meta property="og:url" content="http://yoursite.com/2019/07/28/第三讲以太网/index.html">
+<meta property="og:site_name" content="博学之,审问之,慎思之,明辨之,笃行之">
+<meta property="og:description" content="3.1 内容简介​    互联网是由不同类型的传输网络互联而成的网际网。 ​    以太网就是其中一种传输网络。 12  以太网的发展过程1.传输媒体从采用同轴电缆到双绞线缆和光纤​    同轴电缆柔软性不够，不容易布线。 ​    双绞线和光纤是两种互补性很强的传输媒体 ​    这两种传输媒体的使用催生了一个新兴行业：综合布线     2.从共享式以太网发展到交换式以太网​    最初以太网是">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="c:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553784655679.png">
+<meta property="og:image" content="c:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553837896183.png">
+<meta property="og:image" content="c:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553843587428.png">
+<meta property="og:image" content="c:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553843754388.png">
+<meta property="og:updated_time" content="2019-07-28T09:21:56.040Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="以太网">
+<meta name="twitter:description" content="3.1 内容简介​    互联网是由不同类型的传输网络互联而成的网际网。 ​    以太网就是其中一种传输网络。 12  以太网的发展过程1.传输媒体从采用同轴电缆到双绞线缆和光纤​    同轴电缆柔软性不够，不容易布线。 ​    双绞线和光纤是两种互补性很强的传输媒体 ​    这两种传输媒体的使用催生了一个新兴行业：综合布线     2.从共享式以太网发展到交换式以太网​    最初以太网是">
+<meta name="twitter:image" content="c:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553784655679.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/07/28/第三讲以太网/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>以太网 | 博学之,审问之,慎思之,明辨之,笃行之</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">博学之,审问之,慎思之,明辨之,笃行之</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">aaaaltaaaaの博客</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/第三讲以太网/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="aaaaltaaaa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="博学之,审问之,慎思之,明辨之,笃行之">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">以太网
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-28 17:13:43 / 修改时间：17:21:56" itemprop="dateCreated datePublished" datetime="2019-07-28T17:13:43+08:00">2019-07-28</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="3-1-内容简介"><a href="#3-1-内容简介" class="headerlink" title="3.1 内容简介"></a>3.1 内容简介</h1><p>​    互联网是由不同类型的传输网络互联而成的网际网。</p>
+<p>​    以太网就是其中一种传输网络。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="以太网的发展过程"><a href="#以太网的发展过程" class="headerlink" title="以太网的发展过程"></a>以太网的发展过程</h2><h4 id="1-传输媒体从采用同轴电缆到双绞线缆和光纤"><a href="#1-传输媒体从采用同轴电缆到双绞线缆和光纤" class="headerlink" title="1.传输媒体从采用同轴电缆到双绞线缆和光纤"></a>1.传输媒体从采用同轴电缆到双绞线缆和光纤</h4><p>​    同轴电缆柔软性不够，不容易布线。</p>
+<p>​    双绞线和光纤是两种互补性很强的传输媒体</p>
+<p>​    这两种传输媒体的使用催生了一个新兴行业：综合布线    </p>
+<h4 id="2-从共享式以太网发展到交换式以太网"><a href="#2-从共享式以太网发展到交换式以太网" class="headerlink" title="2.从共享式以太网发展到交换式以太网"></a>2.从共享式以太网发展到交换式以太网</h4><p>​    最初以太网是总线型以太网，也称共享式以太网。</p>
+<p>​    交换式以太网是以太网是以太网发展过程的一个里程碑。</p>
+<p>​    but，广播转发，造成资源浪费和安全问题</p>
+<p>​    —&gt;VLAN技术的出现</p>
+<h4 id="3-出现VLAN和三层交换技术"><a href="#3-出现VLAN和三层交换技术" class="headerlink" title="3.出现VLAN和三层交换技术"></a>3.出现VLAN和三层交换技术</h4><p>​    VLAN技术的出现很好的降低了广播所造成的危害。</p>
+<p>​    VLAN之间的通信？？？ </p>
+<p>​    三层交换机完美解决了以太网VLAN划分，VLAN内通信和VLAN间通信的问题。</p>
+<h4 id="4-从低速以太网发展到高速以太网"><a href="#4-从低速以太网发展到高速以太网" class="headerlink" title="4.从低速以太网发展到高速以太网"></a>4.从低速以太网发展到高速以太网</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="3-2-总线型以太网"><a href="#3-2-总线型以太网" class="headerlink" title="3.2 总线型以太网"></a>3.2 总线型以太网</h1><h2 id="3-2-1总线型以太网基础"><a href="#3-2-1总线型以太网基础" class="headerlink" title="3.2.1总线型以太网基础"></a>3.2.1总线型以太网基础</h2><p> 拓扑结构+<strong>功能需求</strong>+体系结构</p>
+<p><img src="C:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553784655679.png" alt="1553784655679"></p>
+<h3 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h3><p>​    距离问题：互联起来的终端对距离的要求？</p>
+<p>​    利用中继器完成信号的再生，从信号传播角度来说，只要不断增加中继器，总线的长度是无限的。</p>
+<h3 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h3><p>​    对于发送终端来说;</p>
+<p>​        ·发什么？怎么发？什么时候发？</p>
+<p>​    对于receive terminal ：</p>
+<p>​        ·收什么？怎么收？什么时候来收？由谁来收？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">数据封装：</span><br><span class="line">	数据封装用来解决发送什么的问题，数据加上辅助信息形成了帧，发送端以帧为单位发送，接受端以帧为单位接受。</span><br><span class="line">	</span><br><span class="line">数据与信号转换：</span><br><span class="line">	发送teminal将构成帧的二进制位流转换为信号</span><br><span class="line">	接受终端，把从总线上接受到的信号转换成一串二进制位流。</span><br><span class="line"></span><br><span class="line">帧对界：</span><br><span class="line">	解决怎么收，接受terminal要从一串二进制位流中正确提取出每一帧。</span><br><span class="line">	</span><br><span class="line">检测总线状态：</span><br><span class="line">	send terminal 必须要再总线空闲的时候才发送，同样的receive terminal 要在总线上由数据才接受。（总线状态空闲是必要条件）</span><br><span class="line">	总线型以太网是  半双工通信（■■■■）</span><br><span class="line"></span><br><span class="line">公平竞争的总线机制：</span><br><span class="line">	需要由一种机制保证只有一个terminal发送数据，而且每一个terminal成功发送数据的几率还要是均等的。</span><br><span class="line">	</span><br><span class="line">寻址：</span><br><span class="line">	解决谁来收···</span><br><span class="line">	每一个终端要正确判断自己是否是数据的接收者，确定自己是数据的接收者的时候才进行接受</span><br></pre></td></tr></table></figure>
+
+<h3 id="网络体系结构"><a href="#网络体系结构" class="headerlink" title="网络体系结构"></a>网络体系结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网络是分层的不同的功能层完成不同的功能，最底层根据传输网络的不同而不同，</span><br><span class="line">当最底层位以太网的分为MAC层和物理层。</span><br><span class="line">物理层：帧对界，数据与信号的转换，检测总线的状态</span><br><span class="line">MAC层：寻址，公平竞争总线和数据封装。</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-2-2基带传输与曼彻斯特编码"><a href="#3-2-2基带传输与曼彻斯特编码" class="headerlink" title="3.2.2基带传输与曼彻斯特编码"></a>3.2.2基带传输与曼彻斯特编码</h1><h2 id="什么是基带传输"><a href="#什么是基带传输" class="headerlink" title="什么是基带传输"></a>什么是基带传输</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">基带传输就是用基带信号实现数据传输方式。</span><br><span class="line">基带信号就是幅度只有两种离散值的数字信号。</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何用基带信号表示和还原数据？"><a href="#如何用基带信号表示和还原数据？" class="headerlink" title="如何用基带信号表示和还原数据？"></a>如何用基带信号表示和还原数据？</h2><p>​    二进制数的单位是二进制位，基带信号的单位是码元。对基带信号来说，码元就是一个二进制位所对应的信号。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">基带信号幅度：由人工确定 如+/- 0.7V</span><br><span class="line">宽度？</span><br><span class="line">码元长度与数据传输速率有关</span><br><span class="line">数据传输速率：10Mbps</span><br><span class="line">则每秒传输10M位二进制位</span><br><span class="line">基带信号每秒产生10M个码元</span><br><span class="line">那么码元长度（1/1E7）s</span><br></pre></td></tr></table></figure>
+
+<pre><code>时钟：时钟是时间间隔相同的一串方波。单位时间内的方波数称为时钟频率</code></pre><p>每一个方波的长度称为时钟周期。</p>
+<p><img src="C:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553837896183.png" alt="1553837896183"></p>
+<p><img src="C:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553843587428.png" alt="1553843587428"></p>
+<p><img src="C:%5CUsers%5C76639%5CAppData%5CLocal%5CTemp%5C1553843754388.png" alt="1553843754388"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">积累误差；</span><br><span class="line">接收端隔几位校正一次，指的是，让接收端的时钟周期开始位置与码元的开始位置一致，码元的开始位置可以通过跳变让接收端检测到</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">曼彻斯特编码</span><br><span class="line">  0  前高后低</span><br><span class="line">  1  前低后高</span><br><span class="line">  波特率=  2*数据传输速率，对信道带宽的要求提高了。当传输速率提高到100Mbps以上时，不用曼彻斯特编码。</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-2-3数据封装格式-MAC帧-smile-cat"><a href="#3-2-3数据封装格式-MAC帧-smile-cat" class="headerlink" title="3.2.3数据封装格式:MAC帧 :smile_cat:"></a>3.2.3数据封装格式:MAC帧 :smile_cat:</h1><h2 id="3-4-1mac地址"><a href="#3-4-1mac地址" class="headerlink" title="3.4.1mac地址"></a>3.4.1mac地址</h2><p><strong>网卡地址</strong> <strong>全球唯一</strong>  <strong>6个字节</strong></p>
+<p>最后一位为0  单播地址，表示给某一个终端发送数据</p>
+<p>最后一位为1  组播地址，给一组终端发送数据</p>
+<p>FFFF FFFF FFFF   给总线上所有终端发送数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">目的地址+源地址+数据</span><br><span class="line">由于数据类型很多 IP  ARP等等</span><br><span class="line">所以增加一个数据类型</span><br><span class="line">为了检测是否正确 加一个FCS</span><br><span class="line">目的+源+数据类型+数据+FCS</span><br><span class="line"></span><br><span class="line">数据  46-1500字节</span><br><span class="line">为什么要设置上限？？？</span><br><span class="line">1. 接收端的缓存空间是有限的，每次发送的数据不能太长</span><br><span class="line">2.发送的数据太长的话，一旦发送失败，损失特别大</span><br><span class="line">3.每个终端一次不能占用太长时间</span><br><span class="line"></span><br><span class="line">下限？ 与冲突域有关</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">帧对界</span><br><span class="line">总线的状态  空闲状态+曼彻斯特编码</span><br><span class="line">·曼彻斯特编码使得总线数据传输状态和空间状态是不同的</span><br><span class="line">·两个帧之间至少存在一段总线空闲时间。</span><br><span class="line"></span><br><span class="line">要把属于每一帧的二进制位流分隔开。</span><br><span class="line"></span><br><span class="line">MAC层为了实现物理层的帧对界的功能，在MAC帧前面加上一个先导码和帧开始分界符。</span><br><span class="line"></span><br><span class="line">先导码  7字节的10101010组成的一组编码  ---&gt;接收端进行位同步</span><br><span class="line">帧开始分界符   一字节的  10101011  </span><br><span class="line"></span><br><span class="line">sum up</span><br><span class="line">先导码+帧开始定界符号+目的地址MAC+源地址+数据类型+数据+FCS</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-2-4CSMA-CD算法"><a href="#3-2-4CSMA-CD算法" class="headerlink" title="3.2.4CSMA/CD算法"></a>3.2.4CSMA/CD算法</h1><h2 id="工作步骤"><a href="#工作步骤" class="headerlink" title="工作步骤"></a>工作步骤</h2><p>​      <strong>C</strong>arrie <strong>S</strong>ense <strong>M</strong>ultiple <strong>A</strong>ccess with <strong>C</strong>ollision <strong>D</strong>etection</p>
+<p>载波侦听：   检测总线上是否有载波</p>
+<p>多点接入：   指可以有多个终端链接到总线上</p>
+<p>冲突检测：   检测总线上是否发生冲突</p>
+<p>因为总线型以太网式半双工模式，任何时候只能有一个终端发送信息，如果同时多个发送信息就会产生冲突。</p>
+<p>先听再讲：</p>
+<p>​    侦听总线上是否有载波，总线无载波才能发送数据。有载波就继续监听</p>
+<p>等待帧间最小间隔</p>
+<p>​    目的：留出时间让接收终端腾出缓冲空间</p>
+<p>​        避免一个终端连续发送多个MAC帧</p>
+<p>​        让终端正确检测到先导码和帧开始分界符。</p>
+<p>边听边讲：</p>
+<p>​    一边发送数据，一边检测是否发生冲突，如果发生冲突，采取相应措施</p>
+<p>​    如果发生冲突，那么发送一个阻塞信号，告诉总线上的终端，有冲突发生。</p>
+<p>退后再说：</p>
+<p>​    按照后退策略延迟</p>
+<h2 id="后退算法"><a href="#后退算法" class="headerlink" title="后退算法"></a>后退算法</h2><ol>
+<li>K为冲突次数（注意冲突次数是针对同一个MAC帧来说的），初始时，K=0，每发生一次冲突，k++，但是K&lt;=10， 故K = min（冲突次数，10）</li>
+<li>从整数集合【0 ,1,2,3…….,2^k-1】中随机选一个整数R</li>
+<li>根据r，计算出后退时间T =  t*r （t 协议规定时间，不同传输速率t不同）</li>
+<li>如果某个终端连续重传了16次都检测到冲突，则终止传输，并像高层协议报告  </li>
+</ol>
+<p>自适应后退算法，少量终端发生冲突，减少终端的平均延迟时间，大量终端发生冲突，不断增大整数集合，使得有终端能够得到发送数据的机会。</p>
+<h2 id="3-2-5CSMA-CD算法缺陷"><a href="#3-2-5CSMA-CD算法缺陷" class="headerlink" title="3.2.5CSMA/CD算法缺陷"></a>3.2.5CSMA/CD算法缺陷</h2><p> 1.只适合轻负荷情况</p>
+<p>​    网络负荷：某一段时间内连接在总线上的终端需要通过总线发送的数据总量</p>
+<p>​    总线上5个终端同时发送数据，发生冲突则2^k-1 = 1</p>
+<p>​    终端A和终端D延迟相同，结果又发生冲突</p>
+<p>​    终端BCD三个终端的延迟时间又相同，再次发生冲突</p>
+<p>​    那么终端要么与别的终端冲突中，要么处于等待中，总线的利用率很低        </p>
+<p>2.存在捕获效应（一个一直发，另外一个一直发不了）</p>
+<p>3.CSMA/CD存在最短帧长与冲突域直径之间的制约</p>
+<p>​    冲突域，发生冲突的区域，最远两个终端的距离，叫做冲突域直径</p>
+<p>​    设R是冲突域直径，t是信号在R之间传输的时间，无中继器的情况下，t和R之间的关系</p>
+<p><strong>R=tC2/3</strong></p>
+<p>则 时间2t，最坏情况，终端A在终端B处发生冲突，从发送到检测 经过了时间2t</p>
+<p>一边发一遍监听，那么你发送一帧的时间必须大于2t。</p>
+<p>结论：如果冲突域直径t, 终端A的每一帧的发送时间必须大于等于2t</p>
+<h5 id="最短帧长"><a href="#最短帧长" class="headerlink" title="最短帧长"></a>最短帧长</h5><p>发送时间为2t的MAC帧长度叫最短帧长</p>
+<p>Lmin = 2tS</p>
+<p>S为终端的发送速率</p>
+<h4 id="冲突域直径与最短帧长之间的限制"><a href="#冲突域直径与最短帧长之间的限制" class="headerlink" title="冲突域直径与最短帧长之间的限制"></a>冲突域直径与最短帧长之间的限制</h4><p>如果t不变,则:<br> 10Mbps时, L min =2×25.6×10 -6 ×10 7 =512b=64B<br> 100Mbps时,L min =2×25.6×10 -6 ×10 8 =5120b=640B<br>如果最短帧长不变(L min =64B)<br> 10Mbps时, t=L min /(2×s)=512/(2×10 7 ) = 25.6s<br> 100Mbps时,t=L min /(2×s)=512/(2×10 8 ) = 2.56s<br>无中继器冲突域直径R=t×(2/3)c=512m</p>
+<p>如果t不变,则:<br> 100Mbps时, L min =2×25.6×10 -6 ×10 8 =5120b=640B<br> 1000Mbps时,L min =2×25.6×10 -6 ×10 9 =51200b=6400B<br>如果最短帧长不变(L min =64B)<br> 100Mbps时,t=L min /(2×s)=512/(2×10 8 ) = 2.56s<br> 1000Mbps时,t=L min /(2×s)=512/(2×10 9 ) = 0.256s<br>无中继器冲突域直径R=t×(2/3)c=51.2m</p>
+<h1 id="3-3网桥与冲突域分割"><a href="#3-3网桥与冲突域分割" class="headerlink" title="3.3网桥与冲突域分割"></a>3.3网桥与冲突域分割</h1><h2 id="网桥分割冲突域原理"><a href="#网桥分割冲突域原理" class="headerlink" title="网桥分割冲突域原理"></a>网桥分割冲突域原理</h2><p>​    对于前面提到的，总线型以太网CSMA/CD算法的缺陷，我们的解决思路有;</p>
+<ol>
+<li><p>减小终端</p>
+</li>
+<li><p>缩小冲突域直径，可以使得最短帧长不变。</p>
+<p>​    把一个大的以太网的冲突域分割为若干个小的冲突域，让每个冲突域里的终端数量减少，距离缩短，然后用一个设备把这些冲突域连接起来，这个设备称为<strong>网桥</strong>，这就是网桥分割冲突域的基本原理。</p>
+<p><strong>网桥</strong>工作在物理层和数据链路层。 用作物理层设备时，它重新生成接收到的信号，</p>
+<p>用作数据链路层设备时，它可以检查帧所包含的MAC地址。</p>
+<p>网桥具有<strong>能力</strong>，它检查帧的目的地址，并决定该帧被转发或丢弃，转发帧时必须指定端口，每个网桥都有一个端口地址映射表。</p>
+<p>:bookmark:  <strong>hub</strong>是一个多端口的中继器，它通常用于星型拓扑结构。</p>
+<p>:bookmark: <strong>中继器</strong>是仅工作在物理层的设备，网络内携带信息的信号在衰减到危及数据完整性之前，可以传输一段固定的距离，中继器接收信号，并且在信号变得很弱或者被破坏之间，重新生成原始的位模式，然后中继器发送新生成的信号，中继器能够扩展局域网的物理长度。</p>
+</li>
+</ol>
+<h2 id="转发表和MAC帧转发过程"><a href="#转发表和MAC帧转发过程" class="headerlink" title="转发表和MAC帧转发过程"></a>转发表和MAC帧转发过程</h2><h2 id="网桥的工作流程"><a href="#网桥的工作流程" class="headerlink" title="网桥的工作流程"></a>网桥的工作流程</h2><h1 id="3-4交换式以太网和VLAN"><a href="#3-4交换式以太网和VLAN" class="headerlink" title="3.4交换式以太网和VLAN"></a>3.4交换式以太网和VLAN</h1><h2 id="VLAN与广播域分割"><a href="#VLAN与广播域分割" class="headerlink" title="VLAN与广播域分割"></a>VLAN与广播域分割</h2><h3 id="什么是广播域"><a href="#什么是广播域" class="headerlink" title="什么是广播域"></a>什么是广播域</h3><p>· 广播域是指所有的网桥以广播方式输出MAC帧时，MAC帧遍历的网络范围。</p>
+<p>·冲突域中，不管目的地址类型，都是采用广播方式转发，</p>
+<h3 id="广播存在哪些危害"><a href="#广播存在哪些危害" class="headerlink" title="广播存在哪些危害"></a>广播存在哪些危害</h3><p>·浪费网络链路带宽，浪费网桥，终端的处理能力。</p>
+<p>·引发安全问题。</p>
+<p>网桥在那种情况下存在广播？？？？</p>
+<p>1.建立转发表之间，广播</p>
+<p>2.大量网络协议都是广播协议，广播</p>
+<h3 id="引入VLAN的原因"><a href="#引入VLAN的原因" class="headerlink" title="引入VLAN的原因"></a>引入VLAN的原因</h3><p>广播是不可避免的，但是又存在危害。how to do？</p>
+<p>缩小广播域： 减小资源浪费，避免引发安全问题（相同工作特性，相同安全等级）</p>
+<p>划分应该满足： </p>
+<p>·1物理位置无关性。</p>
+<p>·2广播范围动态性。</p>
+<h3 id="什么是VLAN"><a href="#什么是VLAN" class="headerlink" title="什么是VLAN"></a>什么是VLAN</h3><p>​        <strong>物理以太网产生的每一个广播域等同于一个逻辑上独立的以太网，由于这些逻辑上独立的以太网存在于同一个物理以太网中，因而被称为虚拟局域网 VLAN</strong></p>
+<p>``vlan的特性<br>划分VLAN不需要改变以太网的物理结构，<br>改变VLAN不需要改变以太网的物理结构<br>终端归属于哪个VLAN： 与终端在物理以太网中的位置无关。</p>
+<h3 id="VLAN划分的过程"><a href="#VLAN划分的过程" class="headerlink" title="VLAN划分的过程"></a>VLAN划分的过程</h3><p><strong>网桥</strong>：以太网中常常把网桥称为以太网交换机。为了学习方便，具有地址学习、MAC帧转发等分组交换功能的设备。</p>
+<p><strong>以太网交换机</strong>：在网桥基础上，增加了VLAN划分及其他一些增强网络性能的功能的设备。</p>
+<p>以交换机为分组交换设备构建的以太网称为<strong>交换式以太网</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="单交换机VLAN划分过程"><a href="#单交换机VLAN划分过程" class="headerlink" title="单交换机VLAN划分过程"></a>单交换机VLAN划分过程</h2><h3 id="为VLAN分配端口"><a href="#为VLAN分配端口" class="headerlink" title="为VLAN分配端口"></a>为VLAN分配端口</h3><p>​    默认情况下，交换机所有端口属于同一个广播域。      </p>
+<h3 id="建立端口之间的交换路径"><a href="#建立端口之间的交换路径" class="headerlink" title="建立端口之间的交换路径"></a>建立端口之间的交换路径</h3><h3 id="确定MAC帧所属的VLAN"><a href="#确定MAC帧所属的VLAN" class="headerlink" title="确定MAC帧所属的VLAN"></a>确定MAC帧所属的VLAN</h3><h2 id="跨交换机VLAN划分"><a href="#跨交换机VLAN划分" class="headerlink" title="跨交换机VLAN划分"></a>跨交换机VLAN划分</h2><h3 id="端口配置原则"><a href="#端口配置原则" class="headerlink" title="端口配置原则"></a>端口配置原则</h3><p>·将物理以太网中不同交换机中的任意端口组合分配到某个vlan中。</p>
+<p>·建立这些交换机端口之间的交换路径。</p>
+<p>允许将不同交换机的多个端口分配到同一个vlan。</p>
+<p>必须保证任何两个属于同一个vlan之间的端口存在<strong>交换路径</strong>;</p>
+<p><strong>存在问题</strong>：</p>
+<p>​    交换机端口浪费，每个跨交换机的vlan都要有两个端口用来建立交换机之间的交换路径；</p>
+<p>​    交换机之间的物理链路数量是不确定的，随着跨交换机VLAN数量的变化而变化。</p>
+<h3 id="802-1Q"><a href="#802-1Q" class="headerlink" title="802.1Q"></a>802.1Q</h3><p>目的地址|源地址|VLAN标记|类型|数据|FCS；</p>
+<p>其中VLAN标记  |8100H|    |  VLAN ID|</p>
+<h3 id="VLAN内MAC帧传输过程"><a href="#VLAN内MAC帧传输过程" class="headerlink" title="VLAN内MAC帧传输过程"></a>VLAN内MAC帧传输过程</h3><p>交换机1根据连接终端A的端口确定该MAC帧属于VLAN2， <strong>标记上VLAN2标志符</strong>，从共享端口发送出去</p>
+<p>交换机2从共享端口根据mac帧VLAN标识符确定MAC帧属于VLAN2，交由组成VLAN2的网桥转发。</p>
+<h3 id="确定MAC帧所属VLAN规则"><a href="#确定MAC帧所属VLAN规则" class="headerlink" title="确定MAC帧所属VLAN规则"></a>确定MAC帧所属VLAN规则</h3><p>共享端口：同时属于多个VLAN。</p>
+<p>接入端口：只属于单个VLAN</p>
+<p>混合端口：具有共享端口和接入端口双重功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">共享端口</span><br><span class="line"></span><br><span class="line">mac帧需要携带VLAN标识符</span><br><span class="line"></span><br><span class="line">携带的VLAN标识符与共享端口所属的vlan范围一直</span><br><span class="line"></span><br><span class="line">根据MAC帧携带的VLAN标识符确定该MAC帧属于的VLAN；</span><br><span class="line"></span><br><span class="line">接入端口</span><br><span class="line"></span><br><span class="line">##MAC帧不能携带VLAN标识符##</span><br><span class="line"></span><br><span class="line">根据输入MAC帧的端口确定该MAC帧所属VLAN。</span><br><span class="line"></span><br><span class="line">混合端口</span><br><span class="line">·对于携带VLAN标识符的 MAC帧，且携带的VLAN标识符与共享端口所属的vlan范围一致，根据MAC帧携带的VLAN标识符确定VLAN</span><br><span class="line">·对于没有携带VLAN标识符的MAC帧，根据输入MAC帧的端口确定该MAC帧的VLAN。</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/28/操作符重载/" rel="next" title="操作符重载">
+                <i class="fa fa-chevron-left"></i> 操作符重载
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/第四讲无线局域网/" rel="prev" title="无线局域网">
+                无线局域网 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="aaaaltaaaa">
+  
+  <p class="site-author-name" itemprop="name">aaaaltaaaa</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+  <div class="links-of-author motion-element">
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/aaaaltaaaa" title="GitHub &rarr; https://github.com/aaaaltaaaa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3-1-内容简介"><span class="nav-number">1.</span> <span class="nav-text">3.1 内容简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网的发展过程"><span class="nav-number">1.1.</span> <span class="nav-text">以太网的发展过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-传输媒体从采用同轴电缆到双绞线缆和光纤"><span class="nav-number">1.1.0.1.</span> <span class="nav-text">1.传输媒体从采用同轴电缆到双绞线缆和光纤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-从共享式以太网发展到交换式以太网"><span class="nav-number">1.1.0.2.</span> <span class="nav-text">2.从共享式以太网发展到交换式以太网</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-出现VLAN和三层交换技术"><span class="nav-number">1.1.0.3.</span> <span class="nav-text">3.出现VLAN和三层交换技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-从低速以太网发展到高速以太网"><span class="nav-number">1.1.0.4.</span> <span class="nav-text">4.从低速以太网发展到高速以太网</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-总线型以太网"><span class="nav-number">2.</span> <span class="nav-text">3.2 总线型以太网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-1总线型以太网基础"><span class="nav-number">2.1.</span> <span class="nav-text">3.2.1总线型以太网基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#拓扑结构"><span class="nav-number">2.1.1.</span> <span class="nav-text">拓扑结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能需求"><span class="nav-number">2.1.2.</span> <span class="nav-text">功能需求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络体系结构"><span class="nav-number">2.1.3.</span> <span class="nav-text">网络体系结构</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-2基带传输与曼彻斯特编码"><span class="nav-number">3.</span> <span class="nav-text">3.2.2基带传输与曼彻斯特编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是基带传输"><span class="nav-number">3.1.</span> <span class="nav-text">什么是基带传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何用基带信号表示和还原数据？"><span class="nav-number">3.2.</span> <span class="nav-text">如何用基带信号表示和还原数据？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-3数据封装格式-MAC帧-smile-cat"><span class="nav-number">4.</span> <span class="nav-text">3.2.3数据封装格式:MAC帧 :smile_cat:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-1mac地址"><span class="nav-number">4.1.</span> <span class="nav-text">3.4.1mac地址</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-2-4CSMA-CD算法"><span class="nav-number">5.</span> <span class="nav-text">3.2.4CSMA/CD算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工作步骤"><span class="nav-number">5.1.</span> <span class="nav-text">工作步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后退算法"><span class="nav-number">5.2.</span> <span class="nav-text">后退算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-5CSMA-CD算法缺陷"><span class="nav-number">5.3.</span> <span class="nav-text">3.2.5CSMA/CD算法缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#最短帧长"><span class="nav-number">5.3.0.0.1.</span> <span class="nav-text">最短帧长</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#冲突域直径与最短帧长之间的限制"><span class="nav-number">5.3.0.1.</span> <span class="nav-text">冲突域直径与最短帧长之间的限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-3网桥与冲突域分割"><span class="nav-number">6.</span> <span class="nav-text">3.3网桥与冲突域分割</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网桥分割冲突域原理"><span class="nav-number">6.1.</span> <span class="nav-text">网桥分割冲突域原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转发表和MAC帧转发过程"><span class="nav-number">6.2.</span> <span class="nav-text">转发表和MAC帧转发过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网桥的工作流程"><span class="nav-number">6.3.</span> <span class="nav-text">网桥的工作流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-4交换式以太网和VLAN"><span class="nav-number">7.</span> <span class="nav-text">3.4交换式以太网和VLAN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VLAN与广播域分割"><span class="nav-number">7.1.</span> <span class="nav-text">VLAN与广播域分割</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是广播域"><span class="nav-number">7.1.1.</span> <span class="nav-text">什么是广播域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广播存在哪些危害"><span class="nav-number">7.1.2.</span> <span class="nav-text">广播存在哪些危害</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入VLAN的原因"><span class="nav-number">7.1.3.</span> <span class="nav-text">引入VLAN的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是VLAN"><span class="nav-number">7.1.4.</span> <span class="nav-text">什么是VLAN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VLAN划分的过程"><span class="nav-number">7.1.5.</span> <span class="nav-text">VLAN划分的过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单交换机VLAN划分过程"><span class="nav-number">7.2.</span> <span class="nav-text">单交换机VLAN划分过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为VLAN分配端口"><span class="nav-number">7.2.1.</span> <span class="nav-text">为VLAN分配端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立端口之间的交换路径"><span class="nav-number">7.2.2.</span> <span class="nav-text">建立端口之间的交换路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定MAC帧所属的VLAN"><span class="nav-number">7.2.3.</span> <span class="nav-text">确定MAC帧所属的VLAN</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#跨交换机VLAN划分"><span class="nav-number">7.3.</span> <span class="nav-text">跨交换机VLAN划分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口配置原则"><span class="nav-number">7.3.1.</span> <span class="nav-text">端口配置原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#802-1Q"><span class="nav-number">7.3.2.</span> <span class="nav-text">802.1Q</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VLAN内MAC帧传输过程"><span class="nav-number">7.3.3.</span> <span class="nav-text">VLAN内MAC帧传输过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定MAC帧所属VLAN规则"><span class="nav-number">7.3.4.</span> <span class="nav-text">确定MAC帧所属VLAN规则</span></a></li></ol></li></ol></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">aaaaltaaaa</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
